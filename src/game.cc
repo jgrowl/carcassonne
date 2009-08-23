@@ -14,8 +14,8 @@ namespace carcassonne
 
 Game::Game()
 {
-  surface_.reset(new Surface());
-  bag_.reset(new Bag());
+  surface_.reset(new Surface);
+  bag_.reset(new Bag);
   SetupPlayers();
 }
 
@@ -46,51 +46,11 @@ void Game::SetupPlayers()
 		players_.transfer(players_.end(), open_players.begin(), open_players);
 	}
 	
-	
-	/////--------------------------------------
-//	// Create all possible players.
-//	BlackPlayer* black = new BlackPlayer();
-//	RedPlayer* red = new RedPlayer();
-//	GreenPlayer* green = new GreenPlayer();
-//	
-//	// Store all possible players in a vector.
-//	std::vector<Player*> open_players;
-//	open_players.push_back(black);
-//	open_players.push_back(red);
-//	open_players.push_back(green);
-//	
-//	// Seed the system clock to give a random shuffle
-//	std::srand(std::time(NULL));
-//	
-//	// Shuffle them to randomize the colors.
-//	std::random_shuffle(open_players.begin(), open_players.end());
-//	
-//	std::cout << "How many players? ";
-//	
-//	int player_count;
-//	std::cin >> player_count;
-//	
-//	// Create a vector that will contain the actual players
-//	std::vector<Player*> players;
-//
-//	// Save the desired number of players into the actual players vector
-//	for(int i = 0; i < player_count; i++) {
-//		players.push_back(open_players.back()); // Save it.
-//		open_players.pop_back(); // Remove it from the vector
-//	}
-//	
-//	// Clean up any open_players not used
-//	for(std::vector<Player*>::iterator it = open_players.begin(); 
-//			it !=open_players.end(); ++it) {
-//		delete *it;		 	
-//	}
-//		
-//	players_ = players;
-	
 }
 
 void Game::play()
 {
+	std::cout << "Playing Game..." << std::endl;
 	while(false /* Check number of tiles in bag */) {
 		for (boost::ptr_vector<Player>::iterator it = players_.begin(); 
 				it != players_.end() && false /* Check number of tiles in bag */; ++it) {
@@ -105,10 +65,7 @@ void Game::play()
 
 Game::~Game()
 {
-//	for(std::vector<Player*>::iterator it = players_.begin(); 
-//			 it != players_.end(); ++it) {
-//		delete *it;		 	
-//	} 
+
 }
 
 }
