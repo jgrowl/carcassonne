@@ -19,9 +19,10 @@ TopSideConnections::TopSideConnections(bool clockwise,
 SideConnections* TopSideConnections::Copy()
 {
 	return new TopSideConnections(clockwise_, 
-															 across_, 
-															 counterclockwise_, 
-															 middle_);
+															  across_, 
+															  counterclockwise_, 
+															  middle_);
+															  
 }  
 
 std::vector<std::string> TopSideConnections::ToStringVector()

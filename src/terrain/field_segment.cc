@@ -7,6 +7,12 @@ FieldSegment::FieldSegment()
 {
 }
 
+TerrainSegment* FieldSegment::Copy()
+{
+	return new FieldSegment;
+	
+}
+
 FieldSegment::~FieldSegment()
 {
 }

@@ -11,6 +11,14 @@ TopSide::TopSide() : Side()
 	
 }
 
+TopSide::TopSide(TerrainSegment& middle, 
+								 SideConnections& connections) : Side()
+{
+	middle_.reset(&middle);
+	connections_.reset(&connections);
+	
+}
+
 //TopSide::TopSide(Terrain& terrain): Side(terrain)
 //{
 //
@@ -90,6 +98,12 @@ bool TopSide::IsConnectedToLeft()
 {
   return connections_->counterclockwise();
   
+}
+
+Side* TopSide::Copy()
+{
+	return new TopSide(*(middle_->Copy()), *(connections_->Copy()));
+	
 }
 
 std::string TopSide::ToString()

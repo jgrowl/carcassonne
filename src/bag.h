@@ -3,10 +3,10 @@
 
 #include <vector>
 
-#include <boost/scoped_ptr.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
 
 #include "tile.h"
-#include "valid_tiles.h"
+#include "tile_set.h"
 
 namespace carcassonne
 {
@@ -15,6 +15,7 @@ class Bag
 {
  public:
   Bag();
+  Bag(TileSet&);
   
   /*
    * Selects a single tile from the remaining tiles
@@ -24,11 +25,13 @@ class Bag
    */
   Tile* Draw();
   
+  void Fill(TileSet&);
+  
 	virtual ~Bag();
  
  private:
-//	std::vector<Tile*> tiles_;
-	boost::scoped_ptr<ValidTiles> valid_tiles_;
+	boost::ptr_vector<Tile> tiles_;
+
 	
 };
 

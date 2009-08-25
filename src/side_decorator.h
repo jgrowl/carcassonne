@@ -35,7 +35,7 @@ class SideDecorator : public Side
 	
 	virtual ~SideDecorator();
  
- private:
+ protected:
  	Side* side_;
 
 };

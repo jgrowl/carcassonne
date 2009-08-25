@@ -10,6 +10,7 @@ class LeftSide : public Side
 {
  public:
  	LeftSide();
+ 	LeftSide(TerrainSegment& middle, SideConnections& connections);
 // 	LeftSide(Terrain& terrain);
 //  LeftSide(Terrain* terrain, SideConnections* connections);
 	
@@ -22,6 +23,8 @@ class LeftSide : public Side
   virtual bool IsConnectedToRight();
   virtual bool IsConnectedToBottom();
   virtual bool IsConnectedToLeft();
+
+	virtual Side* Copy();
 
   virtual std::string ToString();
   

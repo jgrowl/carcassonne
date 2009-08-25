@@ -14,6 +14,8 @@ public:
 
 	virtual TerrainSideDecorator* Decorate(Side*);
 
+	virtual Side* Copy();
+
 	virtual std::string ToString();
 
 	virtual ~FieldSideDecorator();

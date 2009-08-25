@@ -8,6 +8,9 @@ class TerrainSegment
 {
 public:
 	TerrainSegment();
+	
+	virtual TerrainSegment* Copy() = 0;
+	
 	virtual ~TerrainSegment();
 };
 

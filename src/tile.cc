@@ -1,6 +1,5 @@
 #include "tile.h"
 
-#include "terrain/terrain.h"
 #include "top_side.h"
 #include "right_side.h"
 #include "bottom_side.h"
@@ -17,24 +16,6 @@ Tile::Tile(TerrainSideDecorator& top_terrain,
 	init_terrain_(top_terrain, right_terrain, bottom_terrain, left_terrain);
 	
 }
-
-//Tile::Tile(Terrain& top_terrain,
-//					 Terrain& right_terrain, 
-//					 Terrain& bottom_terrain, 
-//					 Terrain& left_terrain)
-//{
-//	init_(top_terrain, right_terrain, bottom_terrain, left_terrain);
-//	
-//}
-//
-//Tile::Tile(Terrain* top_terrain,
-//					 Terrain* right_terrain,
-//					 Terrain* bottom_terrain, 
-//					 Terrain* left_terrain)
-//{
-//	init_(*top_terrain, *right_terrain, *bottom_terrain, *left_terrain);
-//	
-//}  
 
 Tile& Tile::ConnectedTopToRight()
 {
@@ -87,11 +68,9 @@ Tile& Tile::ConnectedBottomToLeft()
 
 Tile* Tile::Copy()
 {
-//	//TODO: Copy connections
-//	return new Tile(*top_side_,
-//									*right_side_,
-//									*bottom_side_,
-//									*left_side_);
+	
+
+
 	return new Tile();
 
 }
@@ -121,40 +100,18 @@ void Tile::init_terrain_(TerrainSideDecorator& top_terrain,
 	bottom_side_.reset(bottom_terrain.Decorate(new BottomSide));
 	left_side_.reset(left_terrain.Decorate(new LeftSide));
 	
-}
-
-//void Tile::init_(Terrain& top_terrain, 
-//								 Terrain& right_terrain,
-//			 			     Terrain& bottom_terrain,
-//			 			     Terrain& left_terrain)
-//{
-//	init_terrain_(top_terrain, right_terrain, bottom_terrain, left_terrain);
-//	
-//}
-
-//void Tile::init_terrain_(Terrain& top_terrain, 
-//								   			 Terrain& right_terrain,
-//					 				  	   Terrain& bottom_terrain,
-//					 				 			 Terrain& left_terrain)
-//{
-//	// remove sending terrain to each side and decorate with the correct
-//	// terrain decorator.  ex. top_terrain.Decorate(new TopSide)
-//	top_side_.reset(new TopSide(top_terrain));
-//	right_side_.reset(new RightSide(right_terrain));
-//	bottom_side_.reset(new BottomSide(bottom_terrain));
-//	left_side_.reset(new LeftSide(left_terrain));
-//		
-//}					 				 			 		
+}			 				 			 		
 
 void Tile::init_connections_(SideConnections& top_connections,
 												 		 SideConnections& right_connections,
 												 		 SideConnections& bottom_connections,
 												 		 SideConnections& left_connections)
 {
-	top_side_->set_connections(top_connections);
-	right_side_->set_connections(right_connections);
-	bottom_side_->set_connections(bottom_connections);
-	left_side_->set_connections(left_connections);
+	top_side_->set_connections(*top_connections.Copy());
+	right_side_->set_connections(*right_connections.Copy());
+	bottom_side_->set_connections(*bottom_connections.Copy());
+	left_side_->set_connections(*left_connections.Copy());
+	
 }												 						
 
 }

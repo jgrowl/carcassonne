@@ -11,6 +11,14 @@ BottomSide::BottomSide() : Side()
 	
 }
 
+BottomSide::BottomSide(TerrainSegment& middle, 
+								 		   SideConnections& connections) : Side()
+{
+	middle_.reset(&middle);
+	connections_.reset(&connections);
+	
+}
+
 //BottomSide::BottomSide(Terrain& terrain) : Side(terrain)
 //{
 //	
@@ -59,6 +67,12 @@ bool BottomSide::IsConnectedToBottom()
 bool BottomSide::IsConnectedToLeft()
 {
   return connections_->clockwise();
+}
+
+Side* BottomSide::Copy()
+{
+	return new BottomSide(*(middle_->Copy()), *(connections_->Copy()));
+	
 }
 
 std::string BottomSide::ToString()

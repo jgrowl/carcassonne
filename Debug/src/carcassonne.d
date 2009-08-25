@@ -5,7 +5,7 @@ src/carcassonne.d src/carcassonne.o: ../src/carcassonne.cc ../src/game.h \
   ../src/right_side_connections.h ../src/bottom_side_connections.h \
   ../src/left_side_connections.h ../src/terrain_side_decorator.h \
   ../src/side_decorator.h ../src/position.h ../src/bag.h \
-  ../src/valid_tiles.h ../src/field_side_decorator.h \
+  ../src/tile_set.h ../src/valid_tiles.h ../src/field_side_decorator.h \
   ../src/road_side_decorator.h ../src/triple_terrain_side_decorator.h \
   ../src/city_side_decorator.h ../src/player/player.h
 
@@ -40,6 +40,8 @@ src/carcassonne.d src/carcassonne.o: ../src/carcassonne.cc ../src/game.h \
 ../src/position.h:
 
 ../src/bag.h:
+
+../src/tile_set.h:
 
 ../src/valid_tiles.h:
 

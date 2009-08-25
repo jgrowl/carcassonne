@@ -18,7 +18,7 @@ class Side : public SideConnectionInterface
 // 	Side(Terrain& terrain);
 //  Side(Terrain* terrain, SideConnections* connections);
 
-	virtual Terrain* terrain();
+//	virtual Terrain* terrain();
 
   virtual SideConnections* connections();
   
@@ -27,6 +27,7 @@ class Side : public SideConnectionInterface
 	virtual void ConnectedToMiddle();
 	virtual bool IsConnectedToMiddle();
 	
+	virtual Side* Copy() = 0;
   virtual std::string ToString();
 
 	virtual ~Side();
@@ -37,7 +38,7 @@ class Side : public SideConnectionInterface
    * terrain that the middle_ belongs to in all cases since middle_ uniquely
    * defines what kind of terrain the side will need to initialize.
    */
-  boost::scoped_ptr<Terrain> terrain_;
+//  boost::scoped_ptr<Terrain> terrain_;
 
   boost::scoped_ptr<TerrainSegment> middle_;
 

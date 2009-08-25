@@ -12,6 +12,7 @@ class TopSide : public Side
 {
  public:
  	TopSide();
+ 	TopSide(TerrainSegment& middle, SideConnections& connections);
 //	TopSide(Terrain& terrain);
 //  TopSide(Terrain* terrain, SideConnections* connections);
 
@@ -31,6 +32,7 @@ class TopSide : public Side
   virtual bool IsConnectedToBottom();
   virtual bool IsConnectedToLeft();
 
+	virtual Side* Copy();
   virtual std::string ToString();
 
   virtual ~TopSide();

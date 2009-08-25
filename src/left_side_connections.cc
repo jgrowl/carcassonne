@@ -21,6 +21,7 @@ SideConnections* LeftSideConnections::Copy()
 																 across_,
 																 counterclockwise_,
 																 middle_);
+																 
 }   
 
 std::vector<std::string> LeftSideConnections::ToStringVector()

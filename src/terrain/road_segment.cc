@@ -7,6 +7,12 @@ RoadSegment::RoadSegment()
 {
 }
 
+TerrainSegment* RoadSegment::Copy()
+{
+	return new RoadSegment;
+	
+}
+
 RoadSegment::~RoadSegment()
 {
 }

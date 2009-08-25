@@ -7,34 +7,21 @@ Side::Side()
 {
 }
 
-//Side::Side(Terrain& terrain)
-//{
-//	terrain_.reset(terrain.GetNewTerrain());
-//	
-//}
-//
-//Side::Side(Terrain* terrain, SideConnections* connections)
-//{
-//	terrain_.reset(terrain->GetNewTerrain());
-//	connections_.reset(connections->Copy());
-//	
-//}
-
 SideConnections* Side::connections()
 {
 	return connections_.get();
 	
 }
 
-Terrain* Side::terrain() 
-{ 
-	return terrain_.get();
-
-}
+//Terrain* Side::terrain() 
+//{ 
+//	return terrain_.get();
+//
+//}
 
 void Side::set_connections(SideConnections& connections)
 {
-	connections_.reset(connections.Copy());
+	connections_.reset(&connections);
 	
 }
 

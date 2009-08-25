@@ -1,7 +1,6 @@
 #ifndef CARCASSONNE_TILE_H_
 #define CARCASSONNE_TILE_H_
 
-#include <iostream>
 #include <string>
 
 #include <boost/scoped_ptr.hpp>
@@ -26,17 +25,8 @@ class Tile
 	     TerrainSideDecorator& right_terrain, 
 			 TerrainSideDecorator& bottom_terrain,
 			 TerrainSideDecorator& left_terrain);
+			 
  
-//	Tile(Terrain& top_terrain,
-//	     Terrain& right_terrain, 
-//			 Terrain& bottom_terrain,
-//			 Terrain& left_terrain);
-//		 
-//	Tile(Terrain* top_terrain,
-//			 Terrain* right_terrain,
-//			 Terrain* bottom_terrain,
-//			 Terrain* left_terrain);
-	 
 	/**
 	 * Used for Named Parameter Idiom. Allows method chaining in constructor.
 	 * http://www.parashift.com/c++-faq-lite/ctors.html#faq-10.18
@@ -60,16 +50,15 @@ class Tile
 							 			 TerrainSideDecorator& right_terrain,
 							 			 TerrainSideDecorator& bottom_terrain,
 							 			 TerrainSideDecorator& left_terrain);
- 
-//	void init_(Terrain& top_terrain, 
-//			 			 Terrain& right_terrain,
-//			 			 Terrain& bottom_terrain,
-//			 			 Terrain& left_terrain);
-//			 
-//	void init_terrain_(Terrain& top_terrain, 
-//									   Terrain& right_terrain,
-//						 				 Terrain& bottom_terrain,
-//						 				 Terrain& left_terrain);						 				 
+							 			 
+	void init_terrain_(TerrainSideDecorator& top_terrain, 
+							 			 TerrainSideDecorator& right_terrain,
+							 			 TerrainSideDecorator& bottom_terrain,
+							 			 TerrainSideDecorator& left_terrain,
+							 			 TopSideConnections& top_connections,
+							 			 RightSideConnections& right_connections,
+							 			 BottomSideConnections& bottom_connections,
+							 			 LeftSideConnections& left_connections);		 				 
 			 			     	 
 	void init_connections_(SideConnections& top_connections,
 												 SideConnections& right_connections,

@@ -1,6 +1,8 @@
 #ifndef CARCASSONNE_BOTTOM_SIDE_H_
 #define CARCASSONNE_BOTTOM_SIDE_H_
 
+#include <string>
+
 #include "side.h"
 
 namespace carcassonne
@@ -10,6 +12,7 @@ class BottomSide : public Side
 {
  public:
  	BottomSide();
+ 	BottomSide(TerrainSegment& middle, SideConnections& connections);
 // 	BottomSide(Terrain& terrain);
 //  BottomSide(Terrain* terrain, SideConnections* connections);
 
@@ -22,6 +25,8 @@ class BottomSide : public Side
   virtual bool IsConnectedToRight();
   virtual bool IsConnectedToBottom();
   virtual bool IsConnectedToLeft();
+	
+	virtual Side* Copy();
 	
   virtual std::string ToString();
   

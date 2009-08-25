@@ -19,6 +19,12 @@ TerrainSideDecorator* CitySideDecorator::Decorate(Side* side)
 	
 }
 
+Side* CitySideDecorator::Copy()
+{
+	return new CitySideDecorator(side_->Copy());
+	
+}
+
 std::string CitySideDecorator::ToString()
 {
 	return "city " + TerrainSideDecorator::ToString();

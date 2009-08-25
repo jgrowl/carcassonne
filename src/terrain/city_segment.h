@@ -10,6 +10,9 @@ class CitySegment : public TerrainSegment
 {
 public:
 	CitySegment();
+	
+	virtual TerrainSegment* Copy();
+	
 	virtual ~CitySegment();
 };
 

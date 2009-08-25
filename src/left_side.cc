@@ -11,6 +11,14 @@ LeftSide::LeftSide() : Side()
 	
 }
 
+LeftSide::LeftSide(TerrainSegment& middle, 
+								 	 SideConnections& connections) : Side()
+{
+	middle_.reset(&middle);
+	connections_.reset(&connections);
+	
+}
+
 //LeftSide::LeftSide(Terrain& terrain) : Side(terrain)
 //{
 //}
@@ -64,6 +72,12 @@ bool LeftSide::IsConnectedToLeft()
 {
   return true;
   
+}
+
+Side* LeftSide::Copy()
+{
+	return new LeftSide(*(middle_->Copy()), *(connections_->Copy()));
+	
 }
 
 std::string LeftSide::ToString()

@@ -17,9 +17,7 @@ class SideConnections
   SideConnections(bool clockwise,
                   bool across,
                   bool counterclockwise,
-                  bool middle);
-
-	virtual SideConnections* Copy() = 0;               
+                  bool middle);        
 
   virtual bool clockwise();
   virtual bool across();
@@ -31,6 +29,8 @@ class SideConnections
   virtual void set_counterclockwise(bool counterclockwise);
   virtual void set_middle(bool middle);
 
+	virtual SideConnections* Copy() = 0;    
+	
   virtual std::vector<std::string> ToStringVector();
   virtual std::string ToString();
   

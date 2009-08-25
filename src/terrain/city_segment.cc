@@ -7,6 +7,12 @@ CitySegment::CitySegment()
 {
 }
 
+TerrainSegment* CitySegment::Copy()
+{
+	return new CitySegment();
+	
+}
+
 CitySegment::~CitySegment()
 {
 }
