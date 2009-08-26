@@ -66,16 +66,14 @@ Tile& Tile::ConnectedBottomToLeft()
 }
 
 
-Tile* Tile::Copy()
+Tile* Tile::Copy() const
 {
-	
-
-
+	// TODO: IMPLEMENT COPY
 	return new Tile();
 
 }
 
-std::string Tile::ToString()
+std::string Tile::ToString() const
 {
 	return	"tile with: \n\t" +
 					top_side_->ToString() + "\n\t" +

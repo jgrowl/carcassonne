@@ -1,9 +1,6 @@
 #ifndef CARCASSONNE_GAME_H_
 #define CARCASSONNE_GAME_H_
 
-#include <iostream>
-#include <vector>
-
 #include <boost/scoped_ptr.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
@@ -28,7 +25,7 @@ class Game
 	/**
 	 * Starts the game.
 	 */
-	void play();
+	void Play();
 	
 	virtual ~Game();
 	

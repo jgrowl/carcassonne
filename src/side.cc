@@ -37,7 +37,7 @@ bool Side::IsConnectedToMiddle()
 	
 }
 
-std::string Side::ToString()
+std::string Side::ToString() const
 {
 	return "side with " + connections_->ToString();
 	

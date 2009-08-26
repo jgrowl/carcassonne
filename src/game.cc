@@ -1,5 +1,6 @@
 #include "game.h"
 
+#include <iostream>
 #include <algorithm> // For random_shuffle()
 #include <ctime>		 // To seed system clock for use in random_shuffle()
 
@@ -48,7 +49,7 @@ void Game::SetupPlayers()
 	
 }
 
-void Game::play()
+void Game::Play()
 {
 	std::cout << "Playing Game..." << std::endl;
 	while(false /* Check number of tiles in bag */) {

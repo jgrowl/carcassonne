@@ -54,7 +54,7 @@ void SideConnections::set_middle(bool middle)
 	
 }
 
-std::vector<std::string> SideConnections::ToStringVector()
+std::vector<std::string> SideConnections::ToStringVector() const
 {
   std::vector<std::string> tmp;
 
@@ -73,7 +73,7 @@ std::vector<std::string> SideConnections::ToStringVector()
   return tmp;
 }
 
-std::string SideConnections::ToString()
+std::string SideConnections::ToString() const
 {
   return "connection(s) to " + commaize(ToStringVector());
 }

@@ -32,8 +32,8 @@ class TopSide : public Side
   virtual bool IsConnectedToBottom();
   virtual bool IsConnectedToLeft();
 
-	virtual Side* Copy();
-  virtual std::string ToString();
+	virtual Side* Copy() const;
+  virtual std::string ToString() const;
 
   virtual ~TopSide();
 

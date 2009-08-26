@@ -16,9 +16,9 @@ class LeftSideConnections : public SideConnections
 											bool middle);
 	
 	
-	virtual SideConnections* Copy();   
+	virtual SideConnections* Copy() const;   
 	
-	std::vector<std::string> ToStringVector();
+	std::vector<std::string> ToStringVector() const;
 	
 	virtual ~LeftSideConnections();
 };

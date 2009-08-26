@@ -27,8 +27,8 @@ class Side : public SideConnectionInterface
 	virtual void ConnectedToMiddle();
 	virtual bool IsConnectedToMiddle();
 	
-	virtual Side* Copy() = 0;
-  virtual std::string ToString();
+	virtual Side* Copy() const = 0;
+  virtual std::string ToString() const;
 
 	virtual ~Side();
 

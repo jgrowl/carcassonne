@@ -15,7 +15,7 @@ LeftSideConnections::LeftSideConnections(bool clockwise,
 {
 }
 
-SideConnections* LeftSideConnections::Copy()
+SideConnections* LeftSideConnections::Copy() const
 {
 	return new LeftSideConnections(clockwise_, 
 																 across_,
@@ -24,7 +24,7 @@ SideConnections* LeftSideConnections::Copy()
 																 
 }   
 
-std::vector<std::string> LeftSideConnections::ToStringVector()
+std::vector<std::string> LeftSideConnections::ToStringVector() const
 {
   std::vector<std::string> connections;
 

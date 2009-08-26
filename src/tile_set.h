@@ -1,6 +1,8 @@
 #ifndef CARCASSONNE_TILE_SET_H_
 #define CARCASSONNE_TILE_SET_H_
 
+#include <vector>
+
 #include <boost/scoped_ptr.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
@@ -13,11 +15,13 @@ class TileSet
 {
  public:
 	TileSet();
+	
+	virtual void CopyTiles(boost::ptr_vector<Tile>* tiles);
+	
 	virtual ~TileSet();
 	
  private:
  	boost::scoped_ptr<ValidTiles> valid_tiles_;
- 	
  	boost::ptr_vector<Tile> tiles_;
 };
 

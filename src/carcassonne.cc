@@ -2,6 +2,6 @@
 
 int main(int argc, char **argv) {
   carcassonne::Game game;
-  game.play();
+  game.Play();
   return 0;
 }

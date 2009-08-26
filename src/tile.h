@@ -40,8 +40,8 @@ class Tile
 	Tile& ConnectedRightToLeft();
 	Tile& ConnectedBottomToLeft();
  	
-	Tile* Copy();
-	std::string ToString();	
+	Tile* Copy() const;
+	std::string ToString() const;	
  
   virtual ~Tile();
   

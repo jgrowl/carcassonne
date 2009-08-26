@@ -18,9 +18,9 @@ public:
 											  bool counterclockwise,
 											  bool middle);
 	
-	virtual SideConnections* Copy();
+	virtual SideConnections* Copy() const;
 	
-	virtual std::vector<std::string> ToStringVector();
+	virtual std::vector<std::string> ToStringVector() const;
 	
 	virtual ~BottomSideConnections();
 };

@@ -29,10 +29,10 @@ class SideConnections
   virtual void set_counterclockwise(bool counterclockwise);
   virtual void set_middle(bool middle);
 
-	virtual SideConnections* Copy() = 0;    
+	virtual SideConnections* Copy() const = 0;    
 	
-  virtual std::vector<std::string> ToStringVector();
-  virtual std::string ToString();
+  virtual std::vector<std::string> ToStringVector() const;
+  virtual std::string ToString() const;
   
   virtual ~SideConnections();
 

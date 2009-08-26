@@ -1,23 +1,35 @@
 #include "bag.h"
 
+#include <algorithm>
+
+#include "ptr_container_utility.h"	// For random_shuffle()
+
 namespace carcassonne
 {
 
 Bag::Bag()
 {
-	TileSet tile_set;
-	Fill(tile_set);
+	tile_set_.reset(new TileSet);
+	Fill();
+
+}
+
+
+void Bag::Fill()
+{
+	tile_set_->CopyTiles(&tiles_);
 	
 }
 
-Bag::Bag(TileSet& tile_set)
+void Bag::Shuffle()
 {
-	Fill(tile_set);
+	random_shuffle(&tiles_);
 	
 }
 
-void Bag::Fill(TileSet& tile_set)
+Tile* Bag::Draw()
 {
+	return tiles_.pop_back().release();
 	
 }
 

@@ -14,6 +14,7 @@ CC_SRCS += \
 ../src/left_side.cc \
 ../src/left_side_connections.cc \
 ../src/position.cc \
+../src/ptr_container_utility.cc \
 ../src/right_side.cc \
 ../src/right_side_connections.cc \
 ../src/road_side_decorator.cc \
@@ -42,6 +43,7 @@ OBJS += \
 ./src/left_side.o \
 ./src/left_side_connections.o \
 ./src/position.o \
+./src/ptr_container_utility.o \
 ./src/right_side.o \
 ./src/right_side_connections.o \
 ./src/road_side_decorator.o \
@@ -70,6 +72,7 @@ CC_DEPS += \
 ./src/left_side.d \
 ./src/left_side_connections.d \
 ./src/position.d \
+./src/ptr_container_utility.d \
 ./src/right_side.d \
 ./src/right_side_connections.d \
 ./src/road_side_decorator.d \

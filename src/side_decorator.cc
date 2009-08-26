@@ -66,7 +66,7 @@ bool SideDecorator::IsConnectedToLeft()
 	
 }
 
-std::string SideDecorator::ToString()
+std::string SideDecorator::ToString() const
 {
 	return side_->ToString();
 	

@@ -100,13 +100,13 @@ bool TopSide::IsConnectedToLeft()
   
 }
 
-Side* TopSide::Copy()
+Side* TopSide::Copy() const
 {
 	return new TopSide(*(middle_->Copy()), *(connections_->Copy()));
 	
 }
 
-std::string TopSide::ToString()
+std::string TopSide::ToString() const
 {
   return "top side with " + connections_->ToString();
   

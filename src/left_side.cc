@@ -74,13 +74,13 @@ bool LeftSide::IsConnectedToLeft()
   
 }
 
-Side* LeftSide::Copy()
+Side* LeftSide::Copy() const
 {
 	return new LeftSide(*(middle_->Copy()), *(connections_->Copy()));
 	
 }
 
-std::string LeftSide::ToString()
+std::string LeftSide::ToString() const
 {
   return "left side with " + connections_->ToString();
   

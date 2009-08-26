@@ -69,13 +69,13 @@ bool BottomSide::IsConnectedToLeft()
   return connections_->clockwise();
 }
 
-Side* BottomSide::Copy()
+Side* BottomSide::Copy() const
 {
 	return new BottomSide(*(middle_->Copy()), *(connections_->Copy()));
 	
 }
 
-std::string BottomSide::ToString()
+std::string BottomSide::ToString() const
 {
   return "bottom side with " + connections_->ToString();
 }

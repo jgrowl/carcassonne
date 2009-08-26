@@ -70,13 +70,13 @@ bool RightSide::IsConnectedToLeft()
   return connections_->across();
 }
 
-Side* RightSide::Copy()
+Side* RightSide::Copy() const
 {
 	return new RightSide(*(middle_->Copy()), *(connections_->Copy()));
 	
 }
 
-std::string RightSide::ToString()
+std::string RightSide::ToString() const
 {
   return "right side with " + connections_->ToString();
   

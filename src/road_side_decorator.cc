@@ -24,13 +24,13 @@ TerrainSideDecorator* RoadSideDecorator::Decorate(Side* side)
 	
 }
 
-Side* RoadSideDecorator::Copy()
+Side* RoadSideDecorator::Copy() const
 {
 	return new RoadSideDecorator(side_->Copy());
 	
 }
 
-std::string RoadSideDecorator::ToString()
+std::string RoadSideDecorator::ToString() const
 {
 	return "road " + TerrainSideDecorator::ToString();
 	

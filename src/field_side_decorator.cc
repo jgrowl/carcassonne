@@ -19,13 +19,13 @@ TerrainSideDecorator* FieldSideDecorator::Decorate(Side* side)
 	return new FieldSideDecorator(side);
 }
 
-Side* FieldSideDecorator::Copy()
+Side* FieldSideDecorator::Copy() const
 {
 	return new FieldSideDecorator(side_->Copy());
 	
 }
 
-std::string FieldSideDecorator::ToString()
+std::string FieldSideDecorator::ToString() const
 {
 	return "field " + TerrainSideDecorator::ToString();
 	
