@@ -7,6 +7,7 @@ namespace carcassonne
 
 TopSide::TopSide() : Side()
 {
+	middle_.reset(new TerrainSegment);
 	connections_.reset(new TopSideConnections);
 	
 }
@@ -19,15 +20,12 @@ TopSide::TopSide(TerrainSegment& middle,
 	
 }
 
-//TopSide::TopSide(Terrain& terrain): Side(terrain)
-//{
-//
-//}
-//
-//TopSide::TopSide(Terrain* terrain, SideConnections* connections) :
-//   Side(terrain, connections)
-//{
-//}
+TopSide::TopSide(const TopSide& src)
+{
+	middle_.reset(src.middle_->Copy());
+	connections_.reset(src.connections_->Copy());
+	
+}
 
 /**
  * Sets the connection to true

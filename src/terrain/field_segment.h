@@ -10,6 +10,7 @@ class FieldSegment : public TerrainSegment
 {
 public:
 	FieldSegment();
+	FieldSegment(const FieldSegment&);
 	
 	virtual TerrainSegment* Copy();
 	

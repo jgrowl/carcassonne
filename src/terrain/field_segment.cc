@@ -7,6 +7,10 @@ FieldSegment::FieldSegment()
 {
 }
 
+FieldSegment::FieldSegment(const FieldSegment& src) : TerrainSegment()
+{
+}
+
 TerrainSegment* FieldSegment::Copy()
 {
 	return new FieldSegment;

@@ -5,10 +5,17 @@
 <project id="carcassonne.cdt.managedbuild.target.gnu.exe.258336970" name="Executable (Gnu)" projectType="cdt.managedbuild.target.gnu.exe">
 <configuration artifactName="carcassonne" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser" id="cdt.managedbuild.config.gnu.exe.debug.1049354181" name="Debug" parent="cdt.managedbuild.config.gnu.exe.debug">
 <toolChain id="cdt.managedbuild.toolchain.gnu.exe.debug.1411602743" name="GCC Tool Chain" superClass="cdt.managedbuild.toolchain.gnu.exe.debug">
-<tool command="g++" id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.971146698" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug"/>
+<tool command="g++" id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.971146698" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug">
+<option id="gnu.cpp.compiler.option.include.paths.126193673" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath"/>
+<option id="gnu.cpp.compiler.option.other.other.828060727" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 " valueType="string"/>
+</tool>
 <tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.debug.1307581524" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.debug"/>
 <tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.690585402" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug"/>
-<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.1619768858" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug"/>
+<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.1619768858" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
+<option id="gnu.cpp.link.option.libs.1119799691" superClass="gnu.cpp.link.option.libs" valueType="libs"/>
+<option id="gnu.cpp.link.option.flags.1396294830" superClass="gnu.cpp.link.option.flags" value="" valueType="string"/>
+<option id="gnu.cpp.link.option.paths.1952152295" superClass="gnu.cpp.link.option.paths" valueType="stringList"/>
+</tool>
 <tool id="cdt.managedbuild.tool.gnu.assembler.exe.debug.613574410" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.exe.debug"/>
 <macros/>
 </toolChain>
@@ -22,5 +29,6 @@
 <tool id="cdt.managedbuild.tool.gnu.assembler.exe.release.2128443912" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.exe.release"/>
 </toolChain>
 </configuration>
+<macros/>
 </project>
 </ManagedProjectBuildInfo>

@@ -1,5 +1,6 @@
 #include "bag.h"
 
+#include <iostream>
 #include <algorithm>
 
 #include "ptr_container_utility.h"	// For random_shuffle()
@@ -11,6 +12,7 @@ Bag::Bag()
 {
 	tile_set_.reset(new TileSet);
 	Fill();
+	Shuffle();
 
 }
 
@@ -27,9 +29,21 @@ void Bag::Shuffle()
 	
 }
 
-Tile* Bag::Draw()
+void Bag::Draw(boost::scoped_ptr<Tile>* tile)
 {
-	return tiles_.pop_back().release();
+	tile->reset(tiles_.pop_back().release());
+		
+}
+
+int Bag::TilesLeft()
+{
+	return tiles_.size();
+	
+}
+
+bool Bag::IsEmpty()
+{
+	return !TilesLeft();
 	
 }
 

@@ -15,6 +15,15 @@ LeftSideConnections::LeftSideConnections(bool clockwise,
 {
 }
 
+LeftSideConnections::LeftSideConnections(const LeftSideConnections& src)
+{
+	clockwise_ = src.clockwise_;
+	across_ = src.across_;
+	counterclockwise_ = src.counterclockwise_;
+	middle_ = src.middle_;
+	
+}
+
 SideConnections* LeftSideConnections::Copy() const
 {
 	return new LeftSideConnections(clockwise_, 

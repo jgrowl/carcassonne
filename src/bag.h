@@ -19,13 +19,10 @@ class Bag
   
   void Shuffle();
   
-  /*
-   * Selects a single tile from the remaining tiles
-   * 
-   * @return a pointer to a tile that will be placed onto a surface.
-   * The returned points to a heap allocated object that must be deleted.
-   */
-  virtual Tile* Draw();
+  virtual void Draw(boost::scoped_ptr<Tile>* tile);
+  
+  virtual int TilesLeft();
+  virtual bool IsEmpty();
   
 	virtual ~Bag();
  

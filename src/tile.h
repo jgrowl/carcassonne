@@ -20,11 +20,13 @@ namespace carcassonne
 class Tile
 {
  public:
- 	Tile() { }
+ 	Tile();
  	Tile(TerrainSideDecorator& top_terrain,
 	     TerrainSideDecorator& right_terrain, 
 			 TerrainSideDecorator& bottom_terrain,
 			 TerrainSideDecorator& left_terrain);
+			 
+	Tile(const Tile& src);
 			 
  
 	/**
@@ -39,6 +41,11 @@ class Tile
 	Tile& ConnectedRightToBottom();
 	Tile& ConnectedRightToLeft();
 	Tile& ConnectedBottomToLeft();
+	
+	void set_top_side(Side* top);
+	void set_right_side(Side* top);
+	void set_bottom_side(Side* top);
+	void set_left_side(Side* top);
  	
 	Tile* Copy() const;
 	std::string ToString() const;	
@@ -46,24 +53,26 @@ class Tile
   virtual ~Tile();
   
  private:
-	void init_terrain_(TerrainSideDecorator& top_terrain, 
-							 			 TerrainSideDecorator& right_terrain,
-							 			 TerrainSideDecorator& bottom_terrain,
-							 			 TerrainSideDecorator& left_terrain);
+ 	virtual void init_sides_();
+ 
+	virtual void init_terrains_(TerrainSideDecorator& top_terrain, 
+											 			  TerrainSideDecorator& right_terrain,
+											 			  TerrainSideDecorator& bottom_terrain,
+											 			  TerrainSideDecorator& left_terrain);
 							 			 
-	void init_terrain_(TerrainSideDecorator& top_terrain, 
-							 			 TerrainSideDecorator& right_terrain,
-							 			 TerrainSideDecorator& bottom_terrain,
-							 			 TerrainSideDecorator& left_terrain,
-							 			 TopSideConnections& top_connections,
-							 			 RightSideConnections& right_connections,
-							 			 BottomSideConnections& bottom_connections,
-							 			 LeftSideConnections& left_connections);		 				 
+//	virtual void init_terrains_(TerrainSideDecorator& top_terrain, 
+//											 			 TerrainSideDecorator& right_terrain,
+//											 			 TerrainSideDecorator& bottom_terrain,
+//											 			 TerrainSideDecorator& left_terrain,
+//											 			 TopSideConnections& top_connections,
+//											 			 RightSideConnections& right_connections,
+//											 			 BottomSideConnections& bottom_connections,
+//											 			 LeftSideConnections& left_connections);		 				 
 			 			     	 
-	void init_connections_(SideConnections& top_connections,
-												 SideConnections& right_connections,
-												 SideConnections& bottom_connections,
-												 SideConnections& left_connections);	
+	virtual void init_connections_(SideConnections& top_connections,
+																 SideConnections& right_connections,
+																 SideConnections& bottom_connections,
+																 SideConnections& left_connections);	
 												 
  	boost::scoped_ptr<Side> top_side_;
  	boost::scoped_ptr<Side> right_side_;

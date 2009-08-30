@@ -10,6 +10,7 @@ class CitySegment : public TerrainSegment
 {
 public:
 	CitySegment();
+	CitySegment(const CitySegment&);
 	
 	virtual TerrainSegment* Copy();
 	

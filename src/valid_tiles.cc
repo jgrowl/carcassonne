@@ -9,6 +9,7 @@ ValidTiles::ValidTiles()
 	city_city_field_city_->ConnectedTopToRight()
 												.ConnectedTopToLeft()
 												.ConnectedRightToLeft();
+												
 											
 	// Add Pennant											
 	city_city_field_city_p_.reset(city_city_field_city_->Copy());

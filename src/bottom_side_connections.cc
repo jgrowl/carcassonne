@@ -3,7 +3,7 @@
 namespace carcassonne
 {
 
-BottomSideConnections::BottomSideConnections()
+BottomSideConnections::BottomSideConnections() : SideConnections()
 {
 }
 
@@ -13,6 +13,15 @@ BottomSideConnections::BottomSideConnections(bool clockwise,
 											 											 bool middle) :
   SideConnections(clockwise, across, counterclockwise, middle)
 {
+}
+
+BottomSideConnections::BottomSideConnections(const BottomSideConnections& src)
+{
+	clockwise_ = src.clockwise_;
+	across_ = src.across_;
+	counterclockwise_ = src.counterclockwise_;
+	middle_ = src.middle_;
+	
 }
 
 SideConnections* BottomSideConnections::Copy() const

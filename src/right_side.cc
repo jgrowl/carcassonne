@@ -7,6 +7,7 @@ namespace carcassonne
 
 RightSide::RightSide() : Side()
 {
+	middle_.reset(new TerrainSegment);
 	connections_.reset(new RightSideConnections);
 	
 }

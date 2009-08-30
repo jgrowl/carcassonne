@@ -13,8 +13,6 @@ class BottomSide : public Side
  public:
  	BottomSide();
  	BottomSide(TerrainSegment& middle, SideConnections& connections);
-// 	BottomSide(Terrain& terrain);
-//  BottomSide(Terrain* terrain, SideConnections* connections);
 
 	virtual void ConnectedToTop();
 	virtual void ConnectedToRight();

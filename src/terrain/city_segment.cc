@@ -3,13 +3,17 @@
 namespace carcassonne
 {
 
-CitySegment::CitySegment()
+CitySegment::CitySegment() : TerrainSegment()
+{
+}
+
+CitySegment::CitySegment(const CitySegment& src) : TerrainSegment()
 {
 }
 
 TerrainSegment* CitySegment::Copy()
 {
-	return new CitySegment();
+	return new CitySegment;
 	
 }
 

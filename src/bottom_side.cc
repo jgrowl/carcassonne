@@ -7,6 +7,7 @@ namespace carcassonne
 
 BottomSide::BottomSide() : Side()
 {
+	middle_.reset(new TerrainSegment);
 	connections_.reset(new BottomSideConnections);
 	
 }
@@ -18,16 +19,6 @@ BottomSide::BottomSide(TerrainSegment& middle,
 	connections_.reset(&connections);
 	
 }
-
-//BottomSide::BottomSide(Terrain& terrain) : Side(terrain)
-//{
-//	
-//}
-//
-//BottomSide::BottomSide(Terrain* terrain, SideConnections* connections) :
-//		Side(terrain, connections)
-//{
-//}
 
 void BottomSide::ConnectedToTop()
 {
