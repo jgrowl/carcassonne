@@ -1,3 +1,24 @@
+/**
+ * @file game.h
+ * @author Jonathan Rowlands <j.growl1983@gmail.com>
+ * 
+ * @section LICENSE
+ * 
+ *      This file is part of carcassone.
+ *
+ * carcassonne is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * carcassonne is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with carcassonne.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #ifndef CARCASSONNE_GAME_H_
 #define CARCASSONNE_GAME_H_
 
@@ -24,9 +45,6 @@ class Game
 	virtual ~Game();
 	
  private:
-	// Keeps track of whether the current tile has been placed or not.
- 	bool is_tile_placed_;
- 	
  	/**
  	 * Sets a vector of players with size depending on user input.  Players
  	 * will be assigned a random color.
@@ -51,7 +69,7 @@ class Game
 	 * current_tile_ holds one tile that is drawn from the bag.  It should only
 	 * be reset when Draw() is called and the current_tile_ is already placed.
 	 */
-	boost::scoped_ptr<Tile> current_tile_;
+	boost::ptr_vector<Tile> current_tile_;
 	
 };
 

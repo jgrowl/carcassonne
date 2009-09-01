@@ -58,16 +58,7 @@ class Tile
 	virtual void init_terrains_(TerrainSideDecorator& top_terrain, 
 											 			  TerrainSideDecorator& right_terrain,
 											 			  TerrainSideDecorator& bottom_terrain,
-											 			  TerrainSideDecorator& left_terrain);
-							 			 
-//	virtual void init_terrains_(TerrainSideDecorator& top_terrain, 
-//											 			 TerrainSideDecorator& right_terrain,
-//											 			 TerrainSideDecorator& bottom_terrain,
-//											 			 TerrainSideDecorator& left_terrain,
-//											 			 TopSideConnections& top_connections,
-//											 			 RightSideConnections& right_connections,
-//											 			 BottomSideConnections& bottom_connections,
-//											 			 LeftSideConnections& left_connections);		 				 
+											 			  TerrainSideDecorator& left_terrain); 				 
 			 			     	 
 	virtual void init_connections_(SideConnections& top_connections,
 																 SideConnections& right_connections,

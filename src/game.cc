@@ -15,7 +15,6 @@ namespace carcassonne
 
 Game::Game()
 {
-	is_tile_placed_ = true;
   surface_.reset(new Surface);
   bag_.reset(new Bag);
   SetupPlayers_();
@@ -72,26 +71,34 @@ void Game::Play()
 void Game::Draw_()
 {
 	// Check to make sure the tile has been played before a new one is drawn.
-	if(!is_tile_placed_) {
+	if(current_tile_.size() /*If 0 continue with drawing */) {
 		std::cerr << "A tile has already been drawn but not placed." << std::endl;
 		return;
 	}
 	
 	// Draw a tile from the bag and place it in current_tile_
 	bag_->Draw(&current_tile_);
-	std::cout << "Current Tile is: " << current_tile_->ToString() << std::endl;
-	
-	// Update the game's state to reflect the tile has been
-	is_tile_placed_ = true;
+	std::cout << "Player has drawn a " 
+						<< current_tile_.begin()->ToString() 
+						<< std::endl;
 	
 }
 
 void Game::PlaceTile_()
 {
-	// Check it is an open position
-	// Check that it fits
-//	int i;
-//	std::cin >> i;
+	// Get open positions and display to player.
+	
+	// If hint mode is turned on display only open positions where 
+	// current tile will fit.
+	
+	// accept input from user as to where the tile will be placed.
+	
+	Position choice;
+	surface_->PlaceTile(choice, &current_tile_);
+
+
+	int i;
+	std::cin >> i;
 }
 
 Game::~Game()

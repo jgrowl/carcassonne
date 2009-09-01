@@ -29,9 +29,9 @@ void Bag::Shuffle()
 	
 }
 
-void Bag::Draw(boost::scoped_ptr<Tile>* tile)
+void Bag::Draw(boost::ptr_vector<Tile>* tile)
 {
-	tile->reset(tiles_.pop_back().release());
+	tile->push_back(tiles_.pop_back().release());
 		
 }
 

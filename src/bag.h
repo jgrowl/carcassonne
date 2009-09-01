@@ -19,7 +19,7 @@ class Bag
   
   void Shuffle();
   
-  virtual void Draw(boost::scoped_ptr<Tile>* tile);
+  virtual void Draw(boost::ptr_vector<Tile>* tile);
   
   virtual int TilesLeft();
   virtual bool IsEmpty();

@@ -26,6 +26,10 @@ Tile::Tile(TerrainSideDecorator& top_terrain,
 
 Tile::Tile(const Tile& src)
 {
+	top_side_.reset(src.top_side_->Copy());
+	right_side_.reset(src.right_side_->Copy());
+	bottom_side_.reset(src.bottom_side_->Copy());
+	left_side_.reset(src.left_side_->Copy());
 	
 }
 
