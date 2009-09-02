@@ -21,6 +21,8 @@
  */
 #include "position.h"
 
+#include "convert.h"
+
 namespace carcassonne {
 
 Position::Position()
@@ -78,6 +80,11 @@ Position* Position::GetLeftNeighbor() const
   return new Position(dimension1_ - 1, dimension2_);
 }
 
+std::string Position::ToString()
+{
+	return std::string("(") + stringify(dimension1_) + std::string(", ")
+		+ stringify(dimension2_) + std::string(")");
+}
 
 Position::~Position()
 {

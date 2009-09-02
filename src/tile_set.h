@@ -21,6 +21,7 @@ class TileSet
 	virtual ~TileSet();
 	
  private:
+	boost::ptr_vector<Tile> starting_tile_;
  	boost::scoped_ptr<ValidTiles> valid_tiles_;
  	boost::ptr_vector<Tile> tiles_;
 };

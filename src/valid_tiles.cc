@@ -5,6 +5,10 @@ namespace carcassonne
 
 ValidTiles::ValidTiles()
 {
+	
+	city_road_field_road_.reset(new Tile(city_, road_, field_, road_));
+	city_road_field_road_->ConnectedRightToLeft();
+	
 	city_city_field_city_.reset(new Tile(city_, city_, field_, city_));
 	city_city_field_city_->ConnectedTopToRight()
 												.ConnectedTopToLeft()
@@ -24,6 +28,18 @@ ValidTiles::ValidTiles()
 												 .ConnectedRightToLeft()
 												 .ConnectedBottomToLeft();
 												 
+}
+
+Tile* ValidTiles::city_road_field_road()
+{
+	return city_road_field_road_->Copy();
+	
+}
+
+Tile* ValidTiles::starting_tile()
+{
+	return city_road_field_road();
+	
 }
 
 Tile* ValidTiles::city_city_field_city()

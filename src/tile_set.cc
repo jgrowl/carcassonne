@@ -6,6 +6,8 @@ namespace carcassonne
 TileSet::TileSet()
 {
 	valid_tiles_.reset(new ValidTiles);
+
+	starting_tile_.push_back(valid_tiles_->starting_tile());
 	
 // TODO:Make a function that pushes a certain number of tiles into the tile 
 //	 set void push_back_n(Tile**, int);

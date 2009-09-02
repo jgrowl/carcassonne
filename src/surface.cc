@@ -19,27 +19,44 @@
  * You should have received a copy of the GNU General Public License
  * along with carcassonne.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "surface.h"
+
 #include <iostream>
 
 #include <boost/foreach.hpp>
 
-#include "surface.h"
+#include "valid_tiles.h"
 
 namespace carcassonne {
 
-const int Surface::kMaxRows_ = 144;
-const int Surface::kMaxColumns_ = 144;
-const boost::scoped_ptr<Position> 
-	Surface::kOriginPosition_(new Position(kMaxRows_, kMaxColumns_));
+const int Surface::kMaxRows_ = 156;
+const int Surface::kMaxColumns_ = 156;
+boost::scoped_ptr<Position> 
+	Surface::kOriginPosition_(new Position(kMaxRows_/2, kMaxColumns_/2));
 
 Surface::Surface()
 {
-  // Originally the open positions are those that surround the orgin.
-  // Thus they should be added to the set initially.
-  open_positions_.push_back(kOriginPosition_->GetTopNeighbor());
-  open_positions_.push_back(kOriginPosition_->GetRightNeighbor());
-  open_positions_.push_back(kOriginPosition_->GetBottomNeighbor());
-  open_positions_.push_back(kOriginPosition_->GetLeftNeighbor());
+	open_positions_.push_back(kOriginPosition());
+	
+	// This is hackish...  Needs to be structured better. 
+  ValidTiles valid_tiles;
+  boost::ptr_vector<Tile> starting_tiles;
+  starting_tiles.push_back(valid_tiles.starting_tile());
+  std::cout << "Placing starting tile...\n";
+  PlaceTile(*kOriginPosition(), &starting_tiles);
+
+}
+
+Position* Surface::kOriginPosition()
+{
+	return kOriginPosition_.get();
+	
+}
+
+PositionsContainer& Surface::open_positions()
+{
+	return open_positions_;
+	
 }
 
 bool Surface::IsOpen(Position& position) const
@@ -71,27 +88,24 @@ void Surface::PlaceTile(Position& position, boost::ptr_vector<Tile>* tile)
   
 	// Get all new positions that will be created by placing the tile
 	Pos_ptr_vec new_open_positions = GetNewOpenPositions(position);
-	
+
   // Add the positions opened up by the placed tile to open_positions_.
-  for(Pos_ptr_vec::iterator i = new_open_positions.begin(),
-  													e = new_open_positions.end();
-  		i != e; ++i) {
-  			open_positions_.transfer(open_positions_.end(),
-  															 i,
-  															 new_open_positions);
+  while(new_open_positions.size() > 0) {
+  	open_positions_.push_back(new_open_positions.pop_back().release());
   			
   }
   
   // The position is no longer open since the new tile is there so remove it
   // from the open_positions_.
-  for(Pos_ptr_vec::iterator i = open_positions_.begin(), 
-  													e = open_positions_.end();
-  		i != e; ++i) {
-  	if(position.Equals(*i)) {
-  		open_positions_.erase(i);
-  	}
-  }
+  for(unsigned int i = 0; i < open_positions_.size(); ++i) {
+		if(position.Equals(open_positions_[i])) {
+			closed_positions_.push_back(open_positions_
+				.release(open_positions_.begin() + i).release());
+		
+		}
   
+  }
+   
 }
 
 boost::ptr_vector<Position> Surface::GetNeighborPositions(Position& position)
@@ -116,18 +130,34 @@ boost::ptr_vector<Position> Surface::GetNewOpenPositions(Position& position)
 	// Create a container to put all of the open positions from 
 	// possible_positions in.
   boost::ptr_vector<Position> open_positions(4);
-  
+
   // Iterate through possible_positions and add any actual open position
   // to the open_positions container.
-  for(boost::ptr_vector<Position>::iterator	i =	possible_positions.begin(),
-  																					e = possible_positions.end();
-			i != e; ++i) {
-		if(IsOpen(*i)) {
-			open_positions.transfer(open_positions.end(), i, possible_positions);
-		}
-	}
+  while(possible_positions.size() > 0) {
+  	if(!IsOpen(possible_positions.back())) {
+  		open_positions.push_back(possible_positions.pop_back().release());
+  	
+  	} else {
+  		// If the position is not open then it must already exist in the open
+  		// positions, so throw it away.
+  		possible_positions.pop_back();
+  	}
+  		
+  }
 
   return open_positions;
+}
+
+void Surface::Render()
+{
+	std::cout << "Displaying current board...\n";
+	for(PositionsContainer::iterator i = closed_positions_.begin(),
+																	 e = closed_positions_.end(); i != e; ++i) {
+		std::cout << i->ToString();
+		std::cout << tiles_[i->dimension1()][i->dimension2()].ToString();
+
+	}
+	
 }
 
 Surface::~Surface()

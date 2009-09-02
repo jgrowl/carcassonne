@@ -3,8 +3,11 @@
 #include <iostream>
 #include <algorithm> // For random_shuffle()
 #include <ctime>		 // To seed system clock for use in random_shuffle()
+#include <limits>
 
 //#include <boost/foreach.hpp>
+
+#include "tile_set.h"
 
 #include "player/black_player.h"
 #include "player/red_player.h"
@@ -52,11 +55,14 @@ void Game::SetupPlayers_()
 void Game::Play()
 {
 	std::cout << "Playing Game..." << std::endl;
+	
 	while(!(bag_->IsEmpty()) /* While the bag is not empty... */) {
 		// Cycle through players continuously until there are no more tiles
 		for (boost::ptr_vector<Player>::iterator it = players_.begin(); 
 				it != players_.end() && !(bag_->IsEmpty()); ++it) {
 			std::cout << "It is the " << (*it).ToString() << "'s turn.\n";
+		
+			surface_->Render();
 		
 			// Draw a tile from the bag
 			Draw_();
@@ -87,18 +93,26 @@ void Game::Draw_()
 void Game::PlaceTile_()
 {
 	// Get open positions and display to player.
+	std::cout << "Choose where to place the tile: \n";
+	std::cout << surface_->open_positions().ToString() << std::endl;
 	
 	// If hint mode is turned on display only open positions where 
 	// current tile will fit.
 	
 	// accept input from user as to where the tile will be placed.
+	std::cout << ": " << std::endl;
 	
-	Position choice;
-	surface_->PlaceTile(choice, &current_tile_);
-
-
+	// Clear the buffer
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	
 	int i;
 	std::cin >> i;
+
+	
+	Position choice = surface_->open_positions().at(i);
+	surface_->PlaceTile(choice, &current_tile_);
+
 }
 
 Game::~Game()

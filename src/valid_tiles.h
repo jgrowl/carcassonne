@@ -16,6 +16,8 @@ class ValidTiles
  public:
 	ValidTiles();
 	
+	Tile* city_road_field_road();
+	Tile* starting_tile();
 	Tile* city_city_field_city();
 	Tile* city_city_field_city_p();
 	Tile* city_city_city_city_p();
@@ -27,6 +29,7 @@ class ValidTiles
  	RoadSideDecorator road_;
  	CitySideDecorator city_;
  	
+ 	boost::scoped_ptr<Tile> city_road_field_road_;
  	boost::scoped_ptr<Tile> city_city_field_city_;
 	boost::scoped_ptr<Tile> city_city_field_city_p_;
  	boost::scoped_ptr<Tile> city_city_city_city_p_;

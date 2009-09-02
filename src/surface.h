@@ -27,6 +27,7 @@
 #include <boost/ptr_container/ptr_array.hpp>
 
 #include "tile.h"
+#include "positions_container.h"
 #include "position.h"
 
 namespace carcassonne {
@@ -34,6 +35,10 @@ namespace carcassonne {
 class Surface {
  public:
   Surface();
+
+	Position* kOriginPosition();
+
+	PositionsContainer& open_positions();
 
   /**
    * Checks to see if a position is an open position
@@ -71,6 +76,8 @@ class Surface {
    *         placing a tile at the specified position.
    */
   boost::ptr_vector<Position> GetNewOpenPositions(Position& position);
+  
+  virtual void Render();
 
   ~Surface();
 
@@ -78,9 +85,10 @@ class Surface {
   static const int kMaxRows_;
   static const int kMaxColumns_;
 
-  static const boost::scoped_ptr<Position> kOriginPosition_;
+  static boost::scoped_ptr<Position> kOriginPosition_;
 
-  boost::ptr_vector<Position> open_positions_;
+  PositionsContainer open_positions_;
+  PositionsContainer closed_positions_;
 	
   boost::array<boost::ptr_array<Tile, 144>, 144> tiles_;
 

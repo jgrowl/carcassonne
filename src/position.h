@@ -22,6 +22,8 @@
 #ifndef CARCASSONNE_POSITION_H_
 #define CARCASSONNE_POSITION_H_
 
+#include <string>
+
 namespace carcassonne {
 
 class Position {
@@ -37,6 +39,10 @@ class Position {
   Position* GetRightNeighbor() const;
   Position* GetBottomNeighbor() const;
   Position* GetLeftNeighbor() const;
+  
+  virtual std::string ToString();
+  
+  
 
   ~Position();
 
