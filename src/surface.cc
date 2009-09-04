@@ -37,13 +37,13 @@ boost::scoped_ptr<Position>
 Surface::Surface()
 {
 	open_positions_.push_back(kOriginPosition());
-	
-	// This is hackish...  Needs to be structured better. 
-  ValidTiles valid_tiles;
-  boost::ptr_vector<Tile> starting_tiles;
-  starting_tiles.push_back(valid_tiles.starting_tile());
-  std::cout << "Placing starting tile...\n";
-  PlaceTile(*kOriginPosition(), &starting_tiles);
+//	
+//	// This is hackish...  Needs to be structured better. 
+//  ValidTiles valid_tiles;
+//  boost::ptr_vector<Tile> starting_tiles;
+//  starting_tiles.push_back(valid_tiles.starting_tile());
+//  std::cout << "Placing starting tile...\n";
+//  PlaceTile(*kOriginPosition(), &starting_tiles);
 
 }
 
@@ -59,53 +59,75 @@ PositionsContainer& Surface::open_positions()
 	
 }
 
+PositionsContainer& Surface::closed_positions()
+{
+	return closed_positions_;
+	
+}
+
 bool Surface::IsOpen(Position& position) const
 {
   BOOST_FOREACH(Position open_position, open_positions_) {
     if(position.Equals(open_position)) {
       return true;
+      
     }
+    
   }
+  
   return false;
 }
 
-void Surface::PlaceTile(Position& position, boost::ptr_vector<Tile>* tile)
+bool Surface::IsClosed(Position& position) const
 {
-	typedef boost::ptr_vector<Position> Pos_ptr_vec;
-	
-  // The tile cannot be added to a position that is not open.
-  if(!IsOpen(position)) {
-  	// Throw exception
+  BOOST_FOREACH(Position closed_position, closed_positions_) {
+    if(position.Equals(closed_position)) {
+      return true;
+      
+    }
+    
+  }
+  
+  return false;
+}
+
+void Surface::PlaceTile(Position& position, Tile& tile)
+{
+//	typedef boost::ptr_vector<Position> Pos_ptr_vec;
+//	
+//  // The tile cannot be added to a position that is not open.
+//  if(!IsOpen(position)) {
+//  	// Throw exception
 //    return;
-  }
+//  }
+//
+//	// TODO: Make sure the tile matches the surface's terrain.
+//
+//  // The position is open so add a reference to the tile on the array of
+//  // tiles_.
+//	tiles_[position.dimension1()].replace(position.dimension2(), 
+//																				tile->pop_back().release());
+//  
+//	// Get all new positions that will be created by placing the tile
+//	Pos_ptr_vec new_open_positions = GetNewOpenPositions(position);
+//
+//  // Add the positions opened up by the placed tile to open_positions_.
+//  while(new_open_positions.size() > 0) {
+//  	open_positions_.push_back(new_open_positions.pop_back().release());
+//  			
+//  }
+//
+//  // The position is no longer open since the new tile is there so remove it
+//  // from the open_positions_.
+//  for(unsigned int i = 0; i < open_positions_.size(); ++i) {
+//		if(position.Equals(open_positions_[i])) {
+//			closed_positions_.push_back(open_positions_
+//				.release(open_positions_.begin() + i).release());
+//		
+//		}
+//  
+//  }
 
-	// TODO: Make sure the tile matches the surface's terrain.
-
-  // The position is open so add a reference to the tile on the array of
-  // tiles_.
-	tiles_[position.dimension1()].replace(position.dimension2(), 
-																				tile->pop_back().release());
-  
-	// Get all new positions that will be created by placing the tile
-	Pos_ptr_vec new_open_positions = GetNewOpenPositions(position);
-
-  // Add the positions opened up by the placed tile to open_positions_.
-  while(new_open_positions.size() > 0) {
-  	open_positions_.push_back(new_open_positions.pop_back().release());
-  			
-  }
-  
-  // The position is no longer open since the new tile is there so remove it
-  // from the open_positions_.
-  for(unsigned int i = 0; i < open_positions_.size(); ++i) {
-		if(position.Equals(open_positions_[i])) {
-			closed_positions_.push_back(open_positions_
-				.release(open_positions_.begin() + i).release());
-		
-		}
-  
-  }
-   
 }
 
 boost::ptr_vector<Position> Surface::GetNeighborPositions(Position& position)
@@ -134,7 +156,8 @@ boost::ptr_vector<Position> Surface::GetNewOpenPositions(Position& position)
   // Iterate through possible_positions and add any actual open position
   // to the open_positions container.
   while(possible_positions.size() > 0) {
-  	if(!IsOpen(possible_positions.back())) {
+  	if(!IsOpen(possible_positions.back())
+  			&& !IsClosed(possible_positions.back())) {
   		open_positions.push_back(possible_positions.pop_back().release());
   	
   	} else {
@@ -154,7 +177,7 @@ void Surface::Render()
 	for(PositionsContainer::iterator i = closed_positions_.begin(),
 																	 e = closed_positions_.end(); i != e; ++i) {
 		std::cout << i->ToString();
-		std::cout << tiles_[i->dimension1()][i->dimension2()].ToString();
+//		std::cout << tiles_[i->dimension1()][i->dimension2()].ToString();
 
 	}
 	
@@ -162,6 +185,8 @@ void Surface::Render()
 
 Surface::~Surface()
 {
+	std::cout << "Destructing surface...\n";
+
 }
 
 }

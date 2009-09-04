@@ -1,8 +1,7 @@
 #ifndef CARCASSONNE_BAG_H_
 #define CARCASSONNE_BAG_H_
 
-#include <boost/scoped_ptr.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <vector>
 
 #include "tile.h"
 #include "tile_set.h"
@@ -15,11 +14,13 @@ class Bag
  public:
   Bag();
   
-  void Fill();
+  virtual void Fill(std::vector<Tile*> tiles);
   
-  void Shuffle();
+//  void Fill();
+//  
+  virtual void Shuffle();
   
-  virtual void Draw(boost::ptr_vector<Tile>* tile);
+  virtual Tile* Draw();
   
   virtual int TilesLeft();
   virtual bool IsEmpty();
@@ -27,8 +28,7 @@ class Bag
 	virtual ~Bag();
  
  private:
-	boost::scoped_ptr<TileSet> tile_set_;
-	boost::ptr_vector<Tile> tiles_;
+	std::vector<Tile*> tiles_;
 	
 
 	

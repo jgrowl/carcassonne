@@ -3,35 +3,42 @@
 #include <iostream>
 #include <algorithm>
 
-#include "ptr_container_utility.h"	// For random_shuffle()
+#include "vector_utility.h"	// For utility::shuffle()
 
 namespace carcassonne
 {
 
 Bag::Bag()
 {
-	tile_set_.reset(new TileSet);
-	Fill();
-	Shuffle();
+//	Fill();
+//	Shuffle();
 
 }
 
 
-void Bag::Fill()
+void Bag::Fill(std::vector<Tile*> tiles)
 {
-	tile_set_->CopyTiles(&tiles_);
+	tiles_ = tiles;
 	
 }
 
 void Bag::Shuffle()
 {
-	random_shuffle(&tiles_);
+	utility::shuffle(tiles_);
 	
 }
 
-void Bag::Draw(boost::ptr_vector<Tile>* tile)
+
+Tile* Bag::Draw()
 {
-	tile->push_back(tiles_.pop_back().release());
+	// Get a tile.
+	Tile* tile = tiles_.back();
+	
+	// Remove that tile from the rest of the tiles.
+	tiles_.pop_back();
+	
+	// Return the tile
+	return tile;
 		
 }
 
@@ -49,6 +56,7 @@ bool Bag::IsEmpty()
 
 Bag::~Bag()
 {
+	std::cout << "Destructing bag...\n";
 }
 
 }

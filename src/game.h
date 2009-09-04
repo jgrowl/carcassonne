@@ -25,6 +25,7 @@
 #include <boost/scoped_ptr.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
+#include "tile_set.h"
 #include "surface.h"
 #include "bag.h"
 #include "player/player.h"
@@ -61,15 +62,25 @@ class Game
 	 */
 	virtual void PlaceTile_();
 	
+	// The game controls what tile set is used.
+	boost::scoped_ptr<TileSet> tile_set_;
+	
+	// The game needs to initialize a starting tile from its Tileset
+	boost::scoped_ptr<Tile> starting_tile_begin_; 
+	
+	// The game needs to initialize bagable Tiles from its TileSet.
+	boost::ptr_vector<Tile> bagable_tiles_;
+	
 	boost::scoped_ptr<Surface> surface_;
 	boost::scoped_ptr<Bag> bag_;
 	boost::ptr_vector<Player> players_;
 	
 	/**
 	 * current_tile_ holds one tile that is drawn from the bag.  It should only
-	 * be reset when Draw() is called and the current_tile_ is already placed.
+	 * be reset when the current_tile is NULL (Any previous tile has already
+	 * been placed.
 	 */
-	boost::ptr_vector<Tile> current_tile_;
+	Tile* current_tile_;
 	
 };
 

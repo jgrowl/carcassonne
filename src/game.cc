@@ -5,8 +5,9 @@
 #include <ctime>		 // To seed system clock for use in random_shuffle()
 #include <limits>
 
-//#include <boost/foreach.hpp>
-
+#include "vector_utility.h"
+#include "ptr_container_utility.h" // For ptr_vector_to_std_vector() and
+																	 // shuffle()
 #include "tile_set.h"
 
 #include "player/black_player.h"
@@ -18,8 +19,31 @@ namespace carcassonne
 
 Game::Game()
 {
-  surface_.reset(new Surface);
-  bag_.reset(new Bag);
+	// Create the standard TileSet.
+	tile_set_.reset(new TileSet);
+	
+	// Create the standard Surface.
+	surface_.reset(new Surface);
+	
+	// Create a standard Bag
+	bag_.reset(new Bag);
+	
+	// Get a copy of the starting Tile from the TileSet.
+	starting_tile_begin_.reset(tile_set_->starting_tile_begin_copy());
+	
+	// Get a copy of the bagable Tiles from the TileSet.
+	bagable_tiles_ = tile_set_->bagable_tiles_copy();
+	
+	// Fill the bag with the TileSet's bagable tiles.
+	bag_->Fill(utility::ptr_vector_to_std_vector(bagable_tiles_));
+	
+	// Shuffle the bag.
+	bag_->Shuffle();
+	
+	// Initially set the current_tile_ to NULL so it is clear that a tile
+	// has not already been drawn.
+	current_tile_ = NULL;
+	
   SetupPlayers_();
 }
 
@@ -33,13 +57,10 @@ void Game::SetupPlayers_()
 	open_players.push_back(new BlackPlayer);
 	open_players.push_back(new RedPlayer);
 	open_players.push_back(new GreenPlayer);
-
-	// Seed the system clock to give a random shuffle
-	std::srand(std::time(NULL));
 	
 	// Shuffle them to randomize the colors.
-	std::random_shuffle(open_players.begin().base(), open_players.end().base());
-	
+	utility::shuffle(&open_players);
+		
 	std::cout << "How many players? ";
 	
 	int player_count;
@@ -72,20 +93,22 @@ void Game::Play()
 			
 		}
 	}
+	
+	std::cout << "The bag is empty...\n";
 }
 
 void Game::Draw_()
 {
 	// Check to make sure the tile has been played before a new one is drawn.
-	if(current_tile_.size() /*If 0 continue with drawing */) {
+	if(current_tile_ != NULL) {
 		std::cerr << "A tile has already been drawn but not placed." << std::endl;
 		return;
 	}
 	
 	// Draw a tile from the bag and place it in current_tile_
-	bag_->Draw(&current_tile_);
+	current_tile_ = bag_->Draw();
 	std::cout << "Player has drawn a " 
-						<< current_tile_.begin()->ToString() 
+						<< current_tile_->ToString() 
 						<< std::endl;
 	
 }
@@ -100,18 +123,18 @@ void Game::PlaceTile_()
 	// current tile will fit.
 	
 	// accept input from user as to where the tile will be placed.
-	std::cout << ": " << std::endl;
+	std::cout << ": ";
+
+	int i;
+	std::cin >> i;
 	
 	// Clear the buffer
 	std::cin.clear();
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	
-	int i;
-	std::cin >> i;
-
-	
 	Position choice = surface_->open_positions().at(i);
-	surface_->PlaceTile(choice, &current_tile_);
+	std::cout << "Getting ready to place...\n";
+	surface_->PlaceTile(choice, *current_tile_);
 
 }
 

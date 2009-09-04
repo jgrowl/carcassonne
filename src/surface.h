@@ -22,6 +22,8 @@
 #ifndef CARCASSONNE_SURFACE_H_
 #define CARCASSONNE_SURFACE_H_
 
+#include <map>
+
 #include <boost/scoped_ptr.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/ptr_container/ptr_array.hpp>
@@ -39,6 +41,7 @@ class Surface {
 	Position* kOriginPosition();
 
 	PositionsContainer& open_positions();
+	PositionsContainer& closed_positions();
 
   /**
    * Checks to see if a position is an open position
@@ -49,16 +52,23 @@ class Surface {
   bool IsOpen(Position& position) const;
 
   /**
+   * Checks to see if a position is a closed position
+   * 
+   * @param position Position object that is to be checked in the closed 
+   *        positions.
+   */
+  bool IsClosed(Position& position) const;
+
+  /**
    * Places a tile onto the surface and updates the surface's open 
    * positions by removing the used position and adding the new open
    * positions created by the new tile.
    * 
    * @param position The position on the surface that the tile will
    *        			   be added onto.
-   * @param tile The ptr_vector<Tile> that has only one member which is
-   * 						 the tile to be added onto the surface.
+   * @param tile The tile to be added onto the surface.
    */
-  void PlaceTile(Position& position, boost::ptr_vector<Tile>* tile);
+  void PlaceTile(Position& position, Tile& tile);
 
   /**
    * Gets all positions surrounding a position.
@@ -91,6 +101,7 @@ class Surface {
   PositionsContainer closed_positions_;
 	
   boost::array<boost::ptr_array<Tile, 144>, 144> tiles_;
+//  std::map<Position, Tile*> 
 
 };
 
