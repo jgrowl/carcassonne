@@ -11,8 +11,10 @@ class CitySegment : public TerrainSegment
 public:
 	CitySegment();
 	CitySegment(const CitySegment&);
+	CitySegment& operator=(const CitySegment&);
+	void CopyFrom(const CitySegment&);
 	
-	virtual TerrainSegment* Copy();
+	virtual TerrainSegment* Clone();
 	
 	virtual ~CitySegment();
 };

@@ -11,10 +11,14 @@ class RoadSideDecorator : public TripleTerrainSideDecorator
 public:
 	RoadSideDecorator();
 	RoadSideDecorator(Side*);
+ 	RoadSideDecorator(const RoadSideDecorator&);
+ 	RoadSideDecorator& operator=(const RoadSideDecorator&);
+ 	
+ 	virtual void CopyFrom(const RoadSideDecorator&);
+ 	virtual Side* Clone() const;
 	
-	virtual TerrainSideDecorator* Decorate(Side*);
+	virtual SideDecorator* Decorate(Side*);
 	
-	virtual Side* Copy() const;
 	
 	virtual std::string ToString() const;
 	

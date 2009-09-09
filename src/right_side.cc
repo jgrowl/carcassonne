@@ -9,26 +9,35 @@ RightSide::RightSide() : Side()
 {
 	middle_.reset(new TerrainSegment);
 	connections_.reset(new RightSideConnections);
-	
 }
 
-RightSide::RightSide(TerrainSegment& middle, 
-								 		 SideConnections& connections) : Side()
+RightSide::RightSide(const RightSide& src) : Side(src)
 {
-	middle_.reset(&middle);
-	connections_.reset(&connections);
-	
+	CopyFrom(src);	
 }
 
-//RightSide::RightSide(Terrain& terrain) : Side(terrain)
-//{
-//
-//}
-//
-//RightSide::RightSide(Terrain* terrain, SideConnections* connections) :
-//   Side(terrain, connections)
-//{
-//}
+RightSide& RightSide::
+	operator=(const RightSide& rhs)
+{
+	if(this == &rhs) {
+		return (*this);
+	}
+	
+	CopyFrom(rhs);
+	
+	return (*this);
+}
+ 	
+void RightSide::
+	CopyFrom(const RightSide& src)
+{
+}
+ 
+Side* RightSide::
+	Clone() const
+{
+	return new RightSide(*this);
+}
 
 void RightSide::ConnectedToTop()
 {
@@ -69,12 +78,6 @@ bool RightSide::IsConnectedToBottom()
 bool RightSide::IsConnectedToLeft()
 {
   return connections_->across();
-}
-
-Side* RightSide::Copy() const
-{
-	return new RightSide(*(middle_->Copy()), *(connections_->Copy()));
-	
 }
 
 std::string RightSide::ToString() const

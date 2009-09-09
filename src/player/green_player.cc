@@ -9,7 +9,7 @@ GreenPlayer::GreenPlayer()
 
 std::string GreenPlayer::ToString()
 {
-	return "green player";
+	return "green " + Player::ToString();
 }
 
 GreenPlayer::~GreenPlayer()

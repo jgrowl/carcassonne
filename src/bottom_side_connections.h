@@ -43,28 +43,11 @@ class BottomSideConnections : public SideConnections
 	 * Default constructor that sets all connections to false.
 	 */
 	BottomSideConnections();
-	
-	/**
-	 * Constructor that sets the BottomSideConnections' values to a given value.
-	 * 
-	 * @param clockwise True if there is a connection.
-	 * @param across True if there is a connection.
-	 * @param counterclockwise True if there is a connection.
-	 * @param middle True if there is a connection.
-	 */
-	BottomSideConnections(bool clockwise,
-											  bool across,
-											  bool counterclockwise,
-											  bool middle);
-											  
-	/**
-	 * Copy constructor
-	 * Tiles need to be deep copyable so BottomSideConnections must be
-	 * copyable.
-	 */
 	BottomSideConnections(const BottomSideConnections&);
+	BottomSideConnections& operator=(const BottomSideConnections&);
 	
-	virtual SideConnections* Copy() const;
+	virtual void CopyFrom(const BottomSideConnections&);
+	virtual SideConnections* Clone() const;
 	
 	virtual std::vector<std::string> ToStringVector() const;
 	

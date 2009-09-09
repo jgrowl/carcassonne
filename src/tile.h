@@ -25,10 +25,12 @@ class Tile
 	     TerrainSideDecorator& right_terrain, 
 			 TerrainSideDecorator& bottom_terrain,
 			 TerrainSideDecorator& left_terrain);
-			 
-	Tile(const Tile& src);
-			 
- 
+	Tile(const Tile&);
+	Tile& operator=(const Tile&);
+	
+	void CopyFrom(const Tile&);
+	Tile* Clone() const;
+	 
 	/**
 	 * Used for Named Parameter Idiom. Allows method chaining in constructor.
 	 * http://www.parashift.com/c++-faq-lite/ctors.html#faq-10.18
@@ -47,7 +49,6 @@ class Tile
 	void set_bottom_side(Side* top);
 	void set_left_side(Side* top);
  	
-	Tile* Copy() const;
 	std::string ToString() const;	
  
   virtual ~Tile();
@@ -59,11 +60,6 @@ class Tile
 											 			  TerrainSideDecorator& right_terrain,
 											 			  TerrainSideDecorator& bottom_terrain,
 											 			  TerrainSideDecorator& left_terrain); 				 
-			 			     	 
-	virtual void init_connections_(SideConnections& top_connections,
-																 SideConnections& right_connections,
-																 SideConnections& bottom_connections,
-																 SideConnections& left_connections);	
 												 
  	boost::scoped_ptr<Side> top_side_;
  	boost::scoped_ptr<Side> right_side_;

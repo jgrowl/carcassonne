@@ -7,31 +7,34 @@ LeftSideConnections::LeftSideConnections()
 {
 }
 
-LeftSideConnections::LeftSideConnections(bool clockwise,
-											 									 bool across,
-											 									 bool counterclockwise,
-											 									 bool middle) :
-  SideConnections(clockwise, across, counterclockwise, middle)
-{
-}
-
 LeftSideConnections::LeftSideConnections(const LeftSideConnections& src)
+	: SideConnections(src)
 {
-	clockwise_ = src.clockwise_;
-	across_ = src.across_;
-	counterclockwise_ = src.counterclockwise_;
-	middle_ = src.middle_;
-	
+	CopyFrom(src);
 }
 
-SideConnections* LeftSideConnections::Copy() const
+LeftSideConnections& LeftSideConnections::
+	operator=(const LeftSideConnections& rhs)
 {
-	return new LeftSideConnections(clockwise_, 
-																 across_,
-																 counterclockwise_,
-																 middle_);
-																 
-}   
+	if(this == &rhs) {
+		return (*this);
+	}
+	
+	CopyFrom(rhs);
+	
+	return (*this);
+}
+
+void LeftSideConnections::
+	CopyFrom(const LeftSideConnections& src)
+{										  
+}
+
+SideConnections* LeftSideConnections::
+	Clone() const
+{
+	return new LeftSideConnections(*this);
+}
 
 std::vector<std::string> LeftSideConnections::ToStringVector() const
 {

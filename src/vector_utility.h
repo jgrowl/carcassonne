@@ -10,7 +10,7 @@ namespace utility
 {
 
 template <typename T>
-void shuffle(std::vector<T*> vector_to_shuffle)
+void shuffle(std::vector<T>& vector_to_shuffle)
 {
 	// Seed the system clock to give a random shuffle
 	std::srand(std::time(NULL));

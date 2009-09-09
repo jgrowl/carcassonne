@@ -10,22 +10,20 @@ namespace carcassonne
 
 Bag::Bag()
 {
-//	Fill();
-//	Shuffle();
-
 }
 
 
-void Bag::Fill(std::vector<Tile*> tiles)
+void Bag::Fill(std::vector<Tile>& tiles)
 {
-	tiles_ = tiles;
-	
+	for(std::vector<Tile>::iterator i = tiles.begin(), e = tiles.end();
+			i != e; ++i) {
+		tiles_.push_back(&(*i));	
+	}
 }
 
 void Bag::Shuffle()
 {
 	utility::shuffle(tiles_);
-	
 }
 
 
@@ -56,7 +54,6 @@ bool Bag::IsEmpty()
 
 Bag::~Bag()
 {
-	std::cout << "Destructing bag...\n";
 }
 
 }

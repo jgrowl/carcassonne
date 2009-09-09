@@ -11,7 +11,7 @@ class Player
  public:
 	Player();
 	
-	virtual std::string ToString() = 0;
+	virtual std::string ToString();
 	
 	virtual ~Player();
 	

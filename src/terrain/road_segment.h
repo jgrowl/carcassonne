@@ -11,8 +11,10 @@ class RoadSegment : public TerrainSegment
 public:
 	RoadSegment();
 	RoadSegment(const RoadSegment&);
+	RoadSegment& operator=(const RoadSegment&);
 	
-	virtual TerrainSegment* Copy();
+	void CopyFrom(const RoadSegment&);
+	virtual TerrainSegment* Clone();
 	
 	virtual ~RoadSegment();
 };

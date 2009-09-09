@@ -10,9 +10,11 @@ class RightSide : public Side
 {
  public:
  	RightSide();
- 	RightSide(TerrainSegment& middle, SideConnections& connections);
-//  RightSide(Terrain* terrain, SideConnections* connections);
-//  RightSide(Terrain& terrain);
+ 	RightSide(const RightSide&);
+ 	RightSide& operator=(const RightSide&);
+ 	
+ 	virtual void CopyFrom(const RightSide&);
+ 	virtual Side* Clone() const;
 
 	virtual void ConnectedToTop();
 	virtual void ConnectedToRight();
@@ -23,8 +25,6 @@ class RightSide : public Side
   virtual bool IsConnectedToRight();
   virtual bool IsConnectedToBottom();
   virtual bool IsConnectedToLeft();
-
-	virtual Side* Copy() const;
 
   virtual std::string ToString() const;
 

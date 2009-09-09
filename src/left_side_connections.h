@@ -40,29 +40,11 @@ class LeftSideConnections : public SideConnections
 	 * Default constructor that sets all connections to false.
 	 */
 	LeftSideConnections();
-	
-	/**
-	 * Constructor that sets the LeftSideConnections' values to a given value.
-	 * 
-	 * @param clockwise True if there is a connection.
-	 * @param across True if there is a connection.
-	 * @param counterclockwise True if there is a connection.
-	 * @param middle True if there is a connection.
-	 */
-	LeftSideConnections(bool clockwise,
-											bool across,
-											bool counterclockwise,
-											bool middle);
-											
-	/**
-	 * Copy constructor
-	 * Tiles need to be deep copyable so LeftSideConnections must be
-	 * copyable.
-	 */											
 	LeftSideConnections(const LeftSideConnections&);
+	LeftSideConnections& operator=(const LeftSideConnections&);
 	
-	
-	virtual SideConnections* Copy() const;   
+	virtual void CopyFrom(const LeftSideConnections&);
+	virtual SideConnections* Clone() const;
 	
 	std::vector<std::string> ToStringVector() const;
 	

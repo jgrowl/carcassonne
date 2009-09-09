@@ -1,15 +1,41 @@
 #include "side_decorator.h"
+#include <iostream>
 
 namespace carcassonne
 {
 
-SideDecorator::SideDecorator()
+SideDecorator::SideDecorator() : Side()
 {
 }
 
-SideDecorator::SideDecorator(Side* side)
+SideDecorator::SideDecorator(Side* side) : Side()
 {
 	side_ = side;
+}
+
+SideDecorator::SideDecorator(const SideDecorator& src)
+	: Side(src)
+{
+	CopyFrom(src);
+}
+
+SideDecorator& SideDecorator::
+	operator=(const SideDecorator& rhs)
+{
+	if(this == &rhs) {
+		return (*this);
+	}
+	
+	CopyFrom(rhs);
+	
+	return (*this);
+}
+
+void SideDecorator::
+	CopyFrom(const SideDecorator& src)
+{
+	// FIX: Clone returns a specific side but a generic connection?
+	side_ = src.side_->Clone();  
 }
 
 /**

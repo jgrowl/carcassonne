@@ -8,8 +8,35 @@ namespace carcassonne
 BottomSide::BottomSide() : Side()
 {
 	middle_.reset(new TerrainSegment);
-	connections_.reset(new BottomSideConnections);
+	connections_.reset(new BottomSideConnections);	
+}
+
+BottomSide::BottomSide(const BottomSide& src) : Side(src)
+{
+	CopyFrom(src);
+}
+
+BottomSide& BottomSide::
+	operator=(const BottomSide& rhs)
+{
+	if(this == &rhs) {
+		return (*this);
+	}
 	
+	CopyFrom(rhs);
+	
+	return (*this);
+}
+ 	
+void BottomSide::
+	CopyFrom(const BottomSide& src)
+{
+}
+
+Side* BottomSide::
+	Clone() const
+{
+	return new BottomSide(*this);
 }
 
 BottomSide::BottomSide(TerrainSegment& middle, 
@@ -58,12 +85,6 @@ bool BottomSide::IsConnectedToBottom()
 bool BottomSide::IsConnectedToLeft()
 {
   return connections_->clockwise();
-}
-
-Side* BottomSide::Copy() const
-{
-	return new BottomSide(*(middle_->Copy()), *(connections_->Copy()));
-	
 }
 
 std::string BottomSide::ToString() const

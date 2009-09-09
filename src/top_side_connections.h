@@ -34,15 +34,12 @@ class TopSideConnections : public SideConnections
 {
  public:
  	TopSideConnections();
- 	
-  TopSideConnections(bool clockwise,
-                     bool across,
-                     bool counter_clockwise,
-                     bool middle);
-                     
+ 	                     
 	TopSideConnections(const TopSideConnections&);
-
-	virtual SideConnections* Copy() const;   
+	TopSideConnections& operator=(const TopSideConnections&);
+	
+	virtual void CopyFrom(const TopSideConnections&);
+	virtual SideConnections* Clone() const;
 
   virtual std::vector<std::string> ToStringVector() const;
 

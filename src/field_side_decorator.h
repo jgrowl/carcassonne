@@ -11,10 +11,13 @@ class FieldSideDecorator : public TerrainSideDecorator
 public:
 	FieldSideDecorator();
 	FieldSideDecorator(Side*);
+ 	FieldSideDecorator(const FieldSideDecorator&);
+ 	FieldSideDecorator& operator=(const FieldSideDecorator&);
+ 	
+ 	virtual void CopyFrom(const FieldSideDecorator&);
+ 	virtual Side* Clone() const;
 
-	virtual TerrainSideDecorator* Decorate(Side*);
-
-	virtual Side* Copy() const;
+	virtual SideDecorator* Decorate(Side*);
 
 	virtual std::string ToString() const;
 

@@ -4,9 +4,6 @@
 #include <boost/scoped_ptr.hpp>
 
 #include "tile.h"
-#include "field_side_decorator.h"
-#include "road_side_decorator.h"
-#include "city_side_decorator.h"
 
 namespace carcassonne
 {
@@ -16,23 +13,19 @@ class ValidTiles
  public:
 	ValidTiles();
 	
-	Tile* city_road_field_road();
-	Tile* starting_tile();
-	Tile* city_city_field_city();
-	Tile* city_city_field_city_p();
-	Tile* city_city_city_city_p();
+	Tile city_road_field_road_copy();
+	Tile city_city_field_city_copy();
+	Tile city_city_field_city_p_copy();
+	Tile city_city_city_city_p_copy();
 	
 	virtual ~ValidTiles();
  
  private:
- 	FieldSideDecorator field_;
- 	RoadSideDecorator road_;
- 	CitySideDecorator city_;
+ 	Tile city_road_field_road_;
+ 	Tile city_city_field_city_;
+	Tile city_city_field_city_p_;
+ 	Tile city_city_city_city_p_;
  	
- 	boost::scoped_ptr<Tile> city_road_field_road_;
- 	boost::scoped_ptr<Tile> city_city_field_city_;
-	boost::scoped_ptr<Tile> city_city_field_city_p_;
- 	boost::scoped_ptr<Tile> city_city_city_city_p_;
 };
 
 }

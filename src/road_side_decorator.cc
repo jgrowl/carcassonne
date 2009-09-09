@@ -18,15 +18,38 @@ RoadSideDecorator::RoadSideDecorator(Side* side) :
 	
 }
 
-TerrainSideDecorator* RoadSideDecorator::Decorate(Side* side)
+RoadSideDecorator::RoadSideDecorator(const RoadSideDecorator& src) 
+	: TripleTerrainSideDecorator(src)
 {
-	return new RoadSideDecorator(side);
-	
+	CopyFrom(src);	
 }
 
-Side* RoadSideDecorator::Copy() const
+RoadSideDecorator& RoadSideDecorator::
+	operator=(const RoadSideDecorator& rhs)
 {
-	return new RoadSideDecorator(side_->Copy());
+	if(this == &rhs) {
+		return (*this);
+	}
+	
+	CopyFrom(rhs);
+	
+	return (*this);
+}
+ 	
+void RoadSideDecorator::
+	CopyFrom(const RoadSideDecorator& src)
+{
+}
+ 
+Side* RoadSideDecorator::
+	Clone() const
+{
+	return new RoadSideDecorator(*this);
+}
+
+SideDecorator* RoadSideDecorator::Decorate(Side* side)
+{
+	return new RoadSideDecorator(side);
 	
 }
 

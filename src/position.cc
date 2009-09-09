@@ -36,7 +36,38 @@ Position::Position(int dimension1, int dimension2)
 {
   dimension1_ = dimension1;
   dimension2_ = dimension2;
-  
+}
+
+Position::Position(const Position& src)
+{
+	CopyFrom(src);
+}
+
+Position& Position::operator=(const Position& rhs)
+{
+	if(this == &rhs) {
+		return (*this);
+	}
+	
+	CopyFrom(rhs);
+	
+	return (*this);
+}
+
+bool Position::operator==(const Position& rhs)
+{
+	if(dimension1_ == rhs.dimension1_ 
+		  && dimension2_ == rhs.dimension2_) {
+		return true;
+	}
+	
+	return false;
+}
+
+void Position::CopyFrom(const Position& src)
+{
+	dimension1_ = src.dimension1_;
+	dimension2_ = src.dimension2_;
 }
 
 bool Position::Equals(const Position& position) const
@@ -60,27 +91,27 @@ int Position::dimension2() const
   return dimension2_;
 }
 
-Position* Position::GetTopNeighbor() const
+Position Position::GetTopNeighbor() const
 {
-  return new Position(dimension1_, dimension2_ + 1);
+  return Position(dimension1_, dimension2_ + 1);
 }
 
-Position* Position::GetRightNeighbor() const
+Position Position::GetRightNeighbor() const
 {
-  return new Position(dimension1_ + 1, dimension2_);
+  return Position(dimension1_ + 1, dimension2_);
 }
 
-Position* Position::GetBottomNeighbor() const
+Position Position::GetBottomNeighbor() const
 {
-  return new Position(dimension1_, dimension2_ - 1);
+  return Position(dimension1_, dimension2_ - 1);
 }
 
-Position* Position::GetLeftNeighbor() const
+Position Position::GetLeftNeighbor() const
 {
-  return new Position(dimension1_ - 1, dimension2_);
+  return Position(dimension1_ - 1, dimension2_);
 }
 
-std::string Position::ToString()
+std::string Position::ToString() const
 {
 	return std::string("(") + stringify(dimension1_) + std::string(", ")
 		+ stringify(dimension2_) + std::string(")");

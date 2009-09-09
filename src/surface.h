@@ -24,13 +24,18 @@
 
 #include <map>
 
-#include <boost/scoped_ptr.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
-#include <boost/ptr_container/ptr_array.hpp>
 
 #include "tile.h"
-#include "positions_container.h"
 #include "position.h"
+
+#ifndef DISALLOW_COPY_AND_ASSIGN
+// A macro to disallow the copy constructor and operator= functions
+// This should be used in the private: declarations for a class
+#define DISALLOW_COPY_AND_ASSIGN(TypeName) \
+  TypeName(const TypeName&);               \
+  void operator=(const TypeName&)
+#endif
 
 namespace carcassonne {
 
@@ -38,10 +43,9 @@ class Surface {
  public:
   Surface();
 
-	Position* kOriginPosition();
+	Position& kOriginPosition();
 
-	PositionsContainer& open_positions();
-	PositionsContainer& closed_positions();
+	std::vector<Position> open_positions();
 
   /**
    * Checks to see if a position is an open position
@@ -76,7 +80,7 @@ class Surface {
    * @param position Position object whos neighbors are of interest.
    * @return A vector of the positions surrounding the passed position.
    */
-  boost::ptr_vector<Position> GetNeighborPositions(Position& position);
+  std::vector<Position> GetNeighborPositions(Position& position);
 
   /**
    * Gets all new positions that would be created by adding to a position
@@ -85,23 +89,20 @@ class Surface {
    * @return A vector of all new open positions that would be created by
    *         placing a tile at the specified position.
    */
-  boost::ptr_vector<Position> GetNewOpenPositions(Position& position);
+  std::vector<Position> GetNewOpenPositions(Position& position);
   
-  virtual void Render();
+  virtual void Render() const;
 
   ~Surface();
 
  private:
-  static const int kMaxRows_;
-  static const int kMaxColumns_;
+	DISALLOW_COPY_AND_ASSIGN(Surface);
 
-  static boost::scoped_ptr<Position> kOriginPosition_;
+  Position kOriginPosition_;
 
-  PositionsContainer open_positions_;
-  PositionsContainer closed_positions_;
+	std::vector<Position> open_positions_;
 	
-  boost::array<boost::ptr_array<Tile, 144>, 144> tiles_;
-//  std::map<Position, Tile*> 
+  std::map<Position, Tile*, LessThanPosition> tiles_;
 
 };
 

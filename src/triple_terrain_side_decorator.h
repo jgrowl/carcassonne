@@ -13,6 +13,14 @@ class TripleTerrainSideDecorator : public TerrainSideDecorator
  public:
  	TripleTerrainSideDecorator();
 	TripleTerrainSideDecorator(Side*);
+ 	TripleTerrainSideDecorator(const TripleTerrainSideDecorator&);
+ 	TripleTerrainSideDecorator& operator=(const TripleTerrainSideDecorator&);
+ 	
+ 	virtual void CopyFrom(const TripleTerrainSideDecorator&);
+ 	virtual Side* Clone() const = 0;
+ 	
+ 	virtual SideDecorator* Decorate(Side*) = 0;
+	
 	virtual ~TripleTerrainSideDecorator();
 	
  protected:

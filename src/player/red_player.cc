@@ -9,7 +9,7 @@ RedPlayer::RedPlayer()
 
 std::string RedPlayer::ToString()
 {
-	return "red player";
+	return "red " + Player::ToString();
 }
 
 RedPlayer::~RedPlayer()

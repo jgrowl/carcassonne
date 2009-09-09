@@ -14,10 +14,11 @@ class SideConnections
  	 * Default constructor sets all connections to false initially.
  	 */
  	SideConnections();
-  SideConnections(bool clockwise,
-                  bool across,
-                  bool counterclockwise,
-                  bool middle);        
+	SideConnections(const SideConnections&);
+	SideConnections& operator=(const SideConnections&);
+	
+	virtual void CopyFrom(const SideConnections&);
+	virtual SideConnections* Clone() const;
 
   virtual bool clockwise();
   virtual bool across();
@@ -27,9 +28,7 @@ class SideConnections
   virtual void set_clockwise(bool clockwise);
   virtual void set_across(bool across);
   virtual void set_counterclockwise(bool counterclockwise);
-  virtual void set_middle(bool middle);
-
-	virtual SideConnections* Copy() const = 0;    
+  virtual void set_middle(bool middle); 
 	
   virtual std::vector<std::string> ToStringVector() const;
   virtual std::string ToString() const;
@@ -40,7 +39,6 @@ class SideConnections
   bool clockwise_;
   bool across_;
   bool counterclockwise_;
-
   bool middle_;
 };
 

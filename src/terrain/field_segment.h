@@ -11,8 +11,10 @@ class FieldSegment : public TerrainSegment
 public:
 	FieldSegment();
 	FieldSegment(const FieldSegment&);
+	FieldSegment& operator=(const FieldSegment&);
+	void CopyFrom(const FieldSegment&);
 	
-	virtual TerrainSegment* Copy();
+	virtual TerrainSegment* Clone();
 	
 	virtual ~FieldSegment();
 };

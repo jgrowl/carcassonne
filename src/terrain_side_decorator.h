@@ -11,8 +11,13 @@ class TerrainSideDecorator : public SideDecorator
  public:
  	TerrainSideDecorator();
 	TerrainSideDecorator(Side*);
+ 	TerrainSideDecorator(const TerrainSideDecorator&);
+ 	TerrainSideDecorator& operator=(const TerrainSideDecorator&);
+ 	
+ 	virtual void CopyFrom(const TerrainSideDecorator&);
+ 	virtual Side* Clone() const = 0;
 	
-	virtual TerrainSideDecorator* Decorate(Side*) = 0;
+	virtual SideDecorator* Decorate(Side*) = 0;
 	
 	virtual ~TerrainSideDecorator();
 	

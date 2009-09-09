@@ -14,7 +14,7 @@ class Bag
  public:
   Bag();
   
-  virtual void Fill(std::vector<Tile*> tiles);
+  virtual void Fill(std::vector<Tile>& tiles);
   
 //  void Fill();
 //  

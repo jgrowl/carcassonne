@@ -15,10 +15,11 @@ class Side : public SideConnectionInterface
 {
  public:
   Side();
-// 	Side(Terrain& terrain);
-//  Side(Terrain* terrain, SideConnections* connections);
-
-//	virtual Terrain* terrain();
+ 	Side(const Side&);
+ 	Side& operator=(const Side&);
+ 	
+	virtual Side* Clone() const = 0;
+ 	virtual void CopyFrom(const Side&);
 
   virtual SideConnections* connections();
   
@@ -27,7 +28,7 @@ class Side : public SideConnectionInterface
 	virtual void ConnectedToMiddle();
 	virtual bool IsConnectedToMiddle();
 	
-	virtual Side* Copy() const = 0;
+
   virtual std::string ToString() const;
 
 	virtual ~Side();
@@ -41,7 +42,6 @@ class Side : public SideConnectionInterface
 //  boost::scoped_ptr<Terrain> terrain_;
 
   boost::scoped_ptr<TerrainSegment> middle_;
-
   boost::scoped_ptr<SideConnections> connections_;
   
 };

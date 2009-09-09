@@ -12,22 +12,33 @@ LeftSide::LeftSide() : Side()
 	
 }
 
-LeftSide::LeftSide(TerrainSegment& middle, 
-								 	 SideConnections& connections) : Side()
+LeftSide::LeftSide(const LeftSide& src) : Side(src)
 {
-	middle_.reset(&middle);
-	connections_.reset(&connections);
-	
+	CopyFrom(src);	
 }
 
-//LeftSide::LeftSide(Terrain& terrain) : Side(terrain)
-//{
-//}
-//
-//LeftSide::LeftSide(Terrain* terrain, SideConnections* connections) :
-//   Side(terrain, connections) 
-//{
-//}
+LeftSide& LeftSide::
+	operator=(const LeftSide& rhs)
+{
+	if(this == &rhs) {
+		return (*this);
+	}
+	
+	CopyFrom(rhs);
+	
+	return (*this);
+}
+ 	
+void LeftSide::
+	CopyFrom(const LeftSide& src)
+{
+}
+ 
+Side* LeftSide::
+	Clone() const
+{
+	return new LeftSide(*this);
+}
 
 void LeftSide::ConnectedToTop()
 {
@@ -73,12 +84,6 @@ bool LeftSide::IsConnectedToLeft()
 {
   return true;
   
-}
-
-Side* LeftSide::Copy() const
-{
-	return new LeftSide(*(middle_->Copy()), *(connections_->Copy()));
-	
 }
 
 std::string LeftSide::ToString() const

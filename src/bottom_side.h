@@ -12,6 +12,12 @@ class BottomSide : public Side
 {
  public:
  	BottomSide();
+ 	BottomSide(const BottomSide&);
+ 	BottomSide& operator=(const BottomSide&);
+ 	
+ 	virtual void CopyFrom(const BottomSide&);
+ 	virtual Side* Clone() const;
+ 	
  	BottomSide(TerrainSegment& middle, SideConnections& connections);
 
 	virtual void ConnectedToTop();
@@ -23,8 +29,6 @@ class BottomSide : public Side
   virtual bool IsConnectedToRight();
   virtual bool IsConnectedToBottom();
   virtual bool IsConnectedToLeft();
-	
-	virtual Side* Copy() const;
 	
   virtual std::string ToString() const;
   

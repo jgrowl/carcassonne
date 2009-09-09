@@ -7,30 +7,33 @@ BottomSideConnections::BottomSideConnections() : SideConnections()
 {
 }
 
-BottomSideConnections::BottomSideConnections(bool clockwise,
-											 											 bool across,
-											 											 bool counterclockwise,
-											 											 bool middle) :
-  SideConnections(clockwise, across, counterclockwise, middle)
-{
-}
-
 BottomSideConnections::BottomSideConnections(const BottomSideConnections& src)
+	: SideConnections(src)
 {
-	clockwise_ = src.clockwise_;
-	across_ = src.across_;
-	counterclockwise_ = src.counterclockwise_;
-	middle_ = src.middle_;
-	
+	CopyFrom(src);
 }
 
-SideConnections* BottomSideConnections::Copy() const
+BottomSideConnections& BottomSideConnections::
+	operator=(const BottomSideConnections& rhs)
 {
-	return new BottomSideConnections(clockwise_, 
-																  across_, 
-																  counterclockwise_, 
-																  middle_);	
-																  
+	if(this == &rhs) {
+		return (*this);
+	}
+	
+	CopyFrom(rhs);
+	
+	return (*this);
+}
+
+void BottomSideConnections::
+	CopyFrom(const BottomSideConnections& src)
+{										  
+}
+
+SideConnections* BottomSideConnections::
+	Clone() const
+{
+	return new BottomSideConnections(*this);
 }
 
 std::vector<std::string> BottomSideConnections::ToStringVector() const

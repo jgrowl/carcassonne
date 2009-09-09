@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "string_utility.h"
 #include "top_side_connections.h"
 
@@ -8,31 +10,34 @@ TopSideConnections::TopSideConnections() : SideConnections()
 {
 }
 
-TopSideConnections::TopSideConnections(bool clockwise,
-                                       bool across,
-                                       bool counterclockwise,
-                                       bool middle) :
-  SideConnections(clockwise, across, counterclockwise, middle)
-{
-}
-
 TopSideConnections::TopSideConnections(const TopSideConnections& src)
+	: SideConnections(src)
 {
-	clockwise_ = src.clockwise_;
-	across_ = src.across_;
-	counterclockwise_ = src.counterclockwise_;
-	middle_ = src.middle_;
-	
+	CopyFrom(src);
 }
 
-SideConnections* TopSideConnections::Copy() const
+TopSideConnections& TopSideConnections::
+	operator=(const TopSideConnections& rhs)
 {
-	return new TopSideConnections(clockwise_, 
-															  across_, 
-															  counterclockwise_, 
-															  middle_);
-															  
-}  
+	if(this == &rhs) {
+		return (*this);
+	}
+	
+	CopyFrom(rhs);
+	
+	return (*this);
+}
+
+void TopSideConnections::
+	CopyFrom(const TopSideConnections& src)
+{										  
+}
+
+SideConnections* TopSideConnections::
+	Clone() const
+{
+	return new TopSideConnections(*this);
+}
 
 std::vector<std::string> TopSideConnections::ToStringVector() const
 {

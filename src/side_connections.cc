@@ -13,16 +13,36 @@ SideConnections::SideConnections()
   
 }
 
-SideConnections::SideConnections(bool clockwise, 
-																 bool across,
-                                 bool counterclockwise, 
-                                 bool middle)
+SideConnections::SideConnections(const SideConnections& src)
 {
-  clockwise_ = clockwise;
-  across_ = across;
-  counterclockwise_ = counterclockwise;
-  middle_ = middle;
-  
+	CopyFrom(src);
+}
+
+SideConnections& SideConnections::
+	operator=(const SideConnections& rhs)
+{
+	if(this == &rhs) {
+		return (*this);
+	}
+	
+	CopyFrom(rhs);
+	
+	return (*this);
+}
+
+void SideConnections::
+	CopyFrom(const SideConnections& src)
+{
+  clockwise_ = src.clockwise_;
+  across_ = src.across_;
+  counterclockwise_ = src.counterclockwise_;
+  middle_ = src.middle_;
+}
+
+SideConnections* SideConnections::
+	Clone() const
+{
+	return new SideConnections(*this);
 }
 
 bool SideConnections::clockwise() { return clockwise_; }

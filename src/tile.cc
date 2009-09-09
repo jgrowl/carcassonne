@@ -1,5 +1,7 @@
 #include "tile.h"
 
+#include <iostream>
+
 #include "top_side.h"
 #include "right_side.h"
 #include "bottom_side.h"
@@ -25,12 +27,36 @@ Tile::Tile(TerrainSideDecorator& top_terrain,
 }
 
 Tile::Tile(const Tile& src)
+	:	top_side_(),
+		right_side_(),
+		bottom_side_(),
+		left_side_()
 {
-	top_side_.reset(src.top_side_->Copy());
-	right_side_.reset(src.right_side_->Copy());
-	bottom_side_.reset(src.bottom_side_->Copy());
-	left_side_.reset(src.left_side_->Copy());
+	CopyFrom(src);
+}
+
+Tile& Tile::operator=(const Tile& rhs)
+{
+	if(this == &rhs) {
+		return (*this);
+	}
 	
+	CopyFrom(rhs);
+	
+	return (*this);
+}
+
+void Tile::CopyFrom(const Tile& src)
+{
+	top_side_.reset(src.top_side_->Clone());
+	right_side_.reset(src.right_side_->Clone());
+	bottom_side_.reset(src.bottom_side_->Clone());
+	left_side_.reset(src.left_side_->Clone());
+}
+
+Tile* Tile::Clone() const
+{
+	return new Tile(*this);
 }
 
 Tile& Tile::ConnectedTopToRight()
@@ -105,16 +131,7 @@ void Tile::set_left_side(Side* left)
 	
 }
 
-Tile* Tile::Copy() const
-{
-	Tile* tile = new Tile();
-	tile->set_top_side(top_side_->Copy());
-	tile->set_right_side(right_side_->Copy());
-	tile->set_bottom_side(bottom_side_->Copy());
-	tile->set_left_side(left_side_->Copy());
-	return tile;
-	
-}
+
 
 std::string Tile::ToString() const
 {
@@ -150,18 +167,6 @@ void Tile::init_terrains_(TerrainSideDecorator& top_terrain,
 	bottom_side_.reset(bottom_terrain.Decorate(new BottomSide));
 	left_side_.reset(left_terrain.Decorate(new LeftSide));
 	
-}			 				 			 		
-
-void Tile::init_connections_(SideConnections& top_connections,
-												 		 SideConnections& right_connections,
-												 		 SideConnections& bottom_connections,
-												 		 SideConnections& left_connections)
-{
-	top_side_->set_connections(*top_connections.Copy());
-	right_side_->set_connections(*right_connections.Copy());
-	bottom_side_->set_connections(*bottom_connections.Copy());
-	left_side_->set_connections(*left_connections.Copy());
-	
-}												 						
+}			 				 			 												 						
 
 }

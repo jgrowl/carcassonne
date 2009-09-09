@@ -9,7 +9,7 @@ BlackPlayer::BlackPlayer()
 
 std::string BlackPlayer::ToString()
 {
-	return "black player";
+	return "black " + Player::ToString() ;
 }
 
 BlackPlayer::~BlackPlayer()

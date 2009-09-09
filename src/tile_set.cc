@@ -5,52 +5,31 @@ namespace carcassonne
 
 TileSet::TileSet()
 {
-	valid_tiles_.reset(new ValidTiles);
+	ValidTiles valid_tiles_;
 
-	starting_tile_begin_.reset(valid_tiles_->starting_tile());
+	starting_tile_begin_ = valid_tiles_.city_road_field_road_copy();
 	
 // TODO:Make a function that pushes a certain number of tiles into the tile 
 //	 set void push_back_n(Tile**, int);
-	bagable_tiles_.push_back(valid_tiles_->city_city_field_city());
-	bagable_tiles_.push_back(valid_tiles_->city_city_field_city());
-	bagable_tiles_.push_back(valid_tiles_->city_city_field_city());
+	bagable_tiles_.push_back(valid_tiles_.city_city_field_city_copy());
+	bagable_tiles_.push_back(valid_tiles_.city_city_field_city_copy());
+	bagable_tiles_.push_back(valid_tiles_.city_city_field_city_copy());
 	
-	bagable_tiles_.push_back(valid_tiles_->city_city_field_city_p());
+	bagable_tiles_.push_back(valid_tiles_.city_city_field_city_p_copy());
 	
-	bagable_tiles_.push_back(valid_tiles_->city_city_city_city_p());
+	bagable_tiles_.push_back(valid_tiles_.city_city_city_city_p_copy());
 	
 }
 
-Tile* TileSet::starting_tile_begin_copy()
+Tile& TileSet::starting_tile_begin()
 {
-	return starting_tile_begin_->Copy();
-	
+	return starting_tile_begin_;
 }
 
-boost::ptr_vector<Tile> TileSet::bagable_tiles_copy()
+std::vector<Tile>& TileSet::bagable_tiles()
 {
-	boost::ptr_vector<Tile> bagable_tiles;
-	
-	for(boost::ptr_vector<Tile>::const_iterator i = bagable_tiles_.begin(), 
-																							e = bagable_tiles_.end(); 
-				i != e; ++i) {
-		bagable_tiles.push_back(i->Copy());
-	}
-	
-	return bagable_tiles;
-	
+	return bagable_tiles_;
 }
-
-void TileSet::CopyTiles(boost::ptr_vector<Tile>* tiles)
-{
-	for(boost::ptr_vector<Tile>::const_iterator i = tiles_.begin(), 
-																							e = tiles_.end(); 
-				i != e; ++i) {
-		tiles->push_back(i->Copy());
-	}
-	
-}
-
 
 TileSet::~TileSet()
 {

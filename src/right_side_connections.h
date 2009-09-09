@@ -34,13 +34,11 @@ class RightSideConnections : public SideConnections
 {
  public:
 	RightSideConnections();
-	RightSideConnections(bool clockwise,
-											 bool across,
-											 bool counterclockwise,
-											 bool middle);
 	RightSideConnections(const RightSideConnections&);
+	RightSideConnections& operator=(const RightSideConnections&);
 	
-	virtual SideConnections* Copy() const;   
+	virtual void CopyFrom(const RightSideConnections&);
+	virtual SideConnections* Clone() const; 
 	
 	virtual std::vector<std::string> ToStringVector() const;
 	

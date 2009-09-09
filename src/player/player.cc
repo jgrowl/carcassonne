@@ -9,6 +9,11 @@ Player::Player()
 	score_ = 0;
 }
 
+std::string Player::ToString()
+{
+	return "player";
+}
+
 Player::~Player()
 {
 }

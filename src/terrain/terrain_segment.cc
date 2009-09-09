@@ -7,13 +7,29 @@ TerrainSegment::TerrainSegment()
 {
 }
 
-TerrainSegment* TerrainSegment::Copy()
+TerrainSegment& TerrainSegment::operator=(const TerrainSegment& rhs)
 {
-	return new TerrainSegment;
+	if(this == &rhs) {
+		return (*this);
+	}
+	
+	CopyFrom(rhs);
+	
+	return (*this);	
+}
+
+void TerrainSegment::CopyFrom(const TerrainSegment& src)
+{
+}
+
+TerrainSegment* TerrainSegment::Clone()
+{
+	return new TerrainSegment(*this);
 }
 
 TerrainSegment::TerrainSegment(const TerrainSegment& src)
 {
+	CopyFrom(src);
 }
 
 TerrainSegment::~TerrainSegment()

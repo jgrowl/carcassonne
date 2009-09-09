@@ -23,7 +23,6 @@
 #define CARCASSONNE_GAME_H_
 
 #include <boost/scoped_ptr.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
 
 #include "tile_set.h"
 #include "surface.h"
@@ -51,6 +50,11 @@ class Game
  	 * will be assigned a random color.
 	 */ 
 	virtual void SetupPlayers_();
+
+	/**
+	 * Creates a specified number of players
+	 */
+	virtual void CreatePlayers_(int number_of_players);
 	
 	/**
 	 * Draws a single tile from bag_ and places it in current_tile_.
@@ -62,18 +66,15 @@ class Game
 	 */
 	virtual void PlaceTile_();
 	
-	// The game controls what tile set is used.
+	/**
+	 * The game controls what tile set is used.  The TileSet can a be decorated
+	 * dynamically depending on what the players decide.
+	 */	
 	boost::scoped_ptr<TileSet> tile_set_;
 	
-	// The game needs to initialize a starting tile from its Tileset
-	boost::scoped_ptr<Tile> starting_tile_begin_; 
-	
-	// The game needs to initialize bagable Tiles from its TileSet.
-	boost::ptr_vector<Tile> bagable_tiles_;
-	
-	boost::scoped_ptr<Surface> surface_;
-	boost::scoped_ptr<Bag> bag_;
-	boost::ptr_vector<Player> players_;
+	Surface surface_;
+	Bag bag_;
+	std::vector<Player> players_;
 	
 	/**
 	 * current_tile_ holds one tile that is drawn from the bag.  It should only

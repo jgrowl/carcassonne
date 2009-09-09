@@ -23,6 +23,7 @@
 #define CARCASSONNE_POSITION_H_
 
 #include <string>
+#include <functional>	// For binary_function()
 
 namespace carcassonne {
 
@@ -30,26 +31,51 @@ class Position {
  public:
  	Position();
   Position(int dimension1, int dimension2);
+  
+  // Copying a Position should be efficient enough for the clarity of use to
+  // justify the cost.
+  Position(const Position&);
+  Position& operator=(const Position&);
+  bool operator==(const Position&);
+  
+  void CopyFrom(const Position&);
   bool Equals(const Position& position) const;
 
   int dimension1() const;
   int dimension2() const;
 
-  Position* GetTopNeighbor() const;
-  Position* GetRightNeighbor() const;
-  Position* GetBottomNeighbor() const;
-  Position* GetLeftNeighbor() const;
+  Position GetTopNeighbor() const;
+  Position GetRightNeighbor() const;
+  Position GetBottomNeighbor() const;
+  Position GetLeftNeighbor() const;
   
-  virtual std::string ToString();
+  virtual std::string ToString() const;
   
-  
-
   ~Position();
 
  private:
   int dimension1_;
   int dimension2_;
 
+};
+
+struct LessThanPosition : public std::binary_function<Position, 
+																											Position, 
+																											bool>
+{
+	bool operator()(Position position1, Position position2) const
+	{
+		
+		if(position1.dimension1() < position2.dimension1()) {
+			return true;
+		} else if(position1.dimension1() == position2.dimension1()) {
+			if(position1.dimension2() < position2.dimension2()) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 };
 
 }

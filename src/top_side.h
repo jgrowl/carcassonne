@@ -34,8 +34,11 @@ class TopSide : public Side
 {
  public:
  	TopSide();
- 	TopSide(TerrainSegment& middle, SideConnections& connections);
  	TopSide(const TopSide&);
+ 	TopSide& operator=(const TopSide&);
+ 	
+ 	virtual void CopyFrom(const TopSide&);
+ 	virtual Side* Clone() const;
 
 /**
  * Sets the connection to true
@@ -53,7 +56,6 @@ class TopSide : public Side
   virtual bool IsConnectedToBottom();
   virtual bool IsConnectedToLeft();
 
-	virtual Side* Copy() const;
   virtual std::string ToString() const;
 
   virtual ~TopSide();

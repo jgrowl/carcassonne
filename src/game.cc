@@ -22,23 +22,15 @@ Game::Game()
 	// Create the standard TileSet.
 	tile_set_.reset(new TileSet);
 	
-	// Create the standard Surface.
-	surface_.reset(new Surface);
-	
-	// Create a standard Bag
-	bag_.reset(new Bag);
-	
-	// Get a copy of the starting Tile from the TileSet.
-	starting_tile_begin_.reset(tile_set_->starting_tile_begin_copy());
-	
-	// Get a copy of the bagable Tiles from the TileSet.
-	bagable_tiles_ = tile_set_->bagable_tiles_copy();
+	// Place the starting tile.
+	surface_.PlaceTile(surface_.kOriginPosition(),
+										 tile_set_->starting_tile_begin());
 	
 	// Fill the bag with the TileSet's bagable tiles.
-	bag_->Fill(utility::ptr_vector_to_std_vector(bagable_tiles_));
+	bag_.Fill(tile_set_->bagable_tiles());
 	
 	// Shuffle the bag.
-	bag_->Shuffle();
+	bag_.Shuffle();
 	
 	// Initially set the current_tile_ to NULL so it is clear that a tile
 	// has not already been drawn.
@@ -49,41 +41,46 @@ Game::Game()
 
 void Game::SetupPlayers_()
 {
-	// Make sure players is empty to start out with
-	players_.clear();
-	
-	// Store all possible players in a temporary vector.
-	boost::ptr_vector<Player> open_players;
-	open_players.push_back(new BlackPlayer);
-	open_players.push_back(new RedPlayer);
-	open_players.push_back(new GreenPlayer);
-	
-	// Shuffle them to randomize the colors.
-	utility::shuffle(&open_players);
-		
 	std::cout << "How many players? ";
 	
 	int player_count;
 	std::cin >> player_count;
 	
-	// Save the desired number of players into the actual players vector
-	for(int i = 0; i < player_count; i++) {
-		players_.transfer(players_.end(), open_players.begin(), open_players);
-	}
+	CreatePlayers_(player_count);
+}
+
+void Game::CreatePlayers_(int number_of_players)
+{
+	// Make sure players is empty to start out with
+	players_.clear();
 	
+	// Store all possible players in a temporary vector.
+	std::vector<Player> open_players;
+	open_players.push_back(BlackPlayer());
+	open_players.push_back(RedPlayer());
+	open_players.push_back(GreenPlayer());
+	
+	// Shuffle them to randomize the colors.
+	utility::shuffle(open_players);
+	
+	// Save the desired number of players into the actual players vector
+	for(int i = 0; i < number_of_players; i++) {
+		players_.push_back(open_players.back());
+		open_players.pop_back();
+	}
 }
 
 void Game::Play()
 {
 	std::cout << "Playing Game..." << std::endl;
 	
-	while(!(bag_->IsEmpty()) /* While the bag is not empty... */) {
+	while(!(bag_.IsEmpty()) /* While the bag is not empty... */) {
 		// Cycle through players continuously until there are no more tiles
-		for (boost::ptr_vector<Player>::iterator it = players_.begin(); 
-				it != players_.end() && !(bag_->IsEmpty()); ++it) {
+		for (std::vector<Player>::iterator it = players_.begin(); 
+				it != players_.end() && !(bag_.IsEmpty()); ++it) {
 			std::cout << "It is the " << (*it).ToString() << "'s turn.\n";
 		
-			surface_->Render();
+			surface_.Render();
 		
 			// Draw a tile from the bag
 			Draw_();
@@ -106,7 +103,7 @@ void Game::Draw_()
 	}
 	
 	// Draw a tile from the bag and place it in current_tile_
-	current_tile_ = bag_->Draw();
+	current_tile_ = bag_.Draw();
 	std::cout << "Player has drawn a " 
 						<< current_tile_->ToString() 
 						<< std::endl;
@@ -117,7 +114,7 @@ void Game::PlaceTile_()
 {
 	// Get open positions and display to player.
 	std::cout << "Choose where to place the tile: \n";
-	std::cout << surface_->open_positions().ToString() << std::endl;
+	//std::cout << surface_.open_positions().ToString() << std::endl;
 	
 	// If hint mode is turned on display only open positions where 
 	// current tile will fit.
@@ -132,10 +129,9 @@ void Game::PlaceTile_()
 	std::cin.clear();
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	
-	Position choice = surface_->open_positions().at(i);
-	std::cout << "Getting ready to place...\n";
-	surface_->PlaceTile(choice, *current_tile_);
-
+	Position choice = surface_.open_positions().at(i);
+	surface_.PlaceTile(choice, *current_tile_);
+	current_tile_ = NULL;
 }
 
 Game::~Game()

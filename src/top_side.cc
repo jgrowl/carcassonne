@@ -1,5 +1,4 @@
 #include "top_side.h"
-
 #include "top_side_connections.h"
 
 namespace carcassonne
@@ -12,19 +11,32 @@ TopSide::TopSide() : Side()
 	
 }
 
-TopSide::TopSide(TerrainSegment& middle, 
-								 SideConnections& connections) : Side()
+TopSide::TopSide(const TopSide& src) : Side(src)
 {
-	middle_.reset(&middle);
-	connections_.reset(&connections);
-	
+	CopyFrom(src);	
 }
 
-TopSide::TopSide(const TopSide& src)
+TopSide& TopSide::
+	operator=(const TopSide& rhs)
 {
-	middle_.reset(src.middle_->Copy());
-	connections_.reset(src.connections_->Copy());
+	if(this == &rhs) {
+		return (*this);
+	}
 	
+	CopyFrom(rhs);
+	
+	return (*this);
+}
+ 	
+void TopSide::
+	CopyFrom(const TopSide& src)
+{
+}
+ 
+Side* TopSide::
+	Clone() const
+{
+	return new TopSide(*this);
 }
 
 /**
@@ -61,7 +73,6 @@ void TopSide::ConnectedToLeft()
 	
 }
 
-
 /**
  * returns true if the side is connected
  */
@@ -96,12 +107,6 @@ bool TopSide::IsConnectedToLeft()
 {
   return connections_->counterclockwise();
   
-}
-
-Side* TopSide::Copy() const
-{
-	return new TopSide(*(middle_->Copy()), *(connections_->Copy()));
-	
 }
 
 std::string TopSide::ToString() const

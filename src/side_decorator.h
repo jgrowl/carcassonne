@@ -13,6 +13,13 @@ class SideDecorator : public Side
  public:
  	SideDecorator();
 	SideDecorator(Side*);
+ 	SideDecorator(const SideDecorator&);
+ 	SideDecorator& operator=(const SideDecorator&);
+ 	
+ 	virtual void CopyFrom(const SideDecorator&);
+ 	virtual Side* Clone() const = 0;
+	
+	virtual SideDecorator* Decorate(Side*) = 0;
 	
 	/**
    * Sets the connection to true

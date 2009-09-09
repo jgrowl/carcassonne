@@ -13,16 +13,38 @@ CitySideDecorator::CitySideDecorator(Side* side) : TerrainSideDecorator(side)
 	middle_.reset(new CitySegment);
 }
 
-TerrainSideDecorator* CitySideDecorator::Decorate(Side* side)
+SideDecorator* CitySideDecorator::Decorate(Side* side)
 {
 	return new CitySideDecorator(side);
-	
 }
 
-Side* CitySideDecorator::Copy() const
+CitySideDecorator::CitySideDecorator(const CitySideDecorator& src)
+	: TerrainSideDecorator(src)
 {
-	return new CitySideDecorator(side_->Copy());
+	CopyFrom(src);	
+}
+
+CitySideDecorator& CitySideDecorator::
+	operator=(const CitySideDecorator& rhs)
+{
+	if(this == &rhs) {
+		return (*this);
+	}
 	
+	CopyFrom(rhs);
+	
+	return (*this);
+}
+ 	
+void CitySideDecorator::
+	CopyFrom(const CitySideDecorator& src)
+{
+}
+ 
+Side* CitySideDecorator::
+	Clone() const
+{
+	return new CitySideDecorator(*this);
 }
 
 std::string CitySideDecorator::ToString() const
