@@ -143,6 +143,69 @@ std::string Tile::ToString() const
 	
 }	 
 
+bool Tile::
+	IsTopTerrainMatch(Tile& in_top_tile) const
+{
+	TerrainSideDecorator* top_side 
+		= dynamic_cast<TerrainSideDecorator*>(top_side_.get());
+	
+	TerrainSideDecorator* in_bottom_side
+		= dynamic_cast<TerrainSideDecorator*>(in_top_tile.bottom_side_.get());
+	
+	if(top_side->IsPotentialTerrainMatch(*in_bottom_side)) {
+		return true;
+	}
+	
+	return false;	
+}
+
+bool Tile::
+	 IsRightTerrainMatch(Tile& in_right_tile) const
+{
+	TerrainSideDecorator* right_side 
+		= dynamic_cast<TerrainSideDecorator*>(right_side_.get());
+	
+	TerrainSideDecorator* in_left_side
+		= dynamic_cast<TerrainSideDecorator*>(in_right_tile.left_side_.get());
+	
+	if(right_side->IsPotentialTerrainMatch(*in_left_side)) {
+		return true;
+	}
+	
+	return false;		
+}
+
+bool Tile::
+	IsBottomTerrainMatch(Tile& in_bottom_tile) const
+{
+	TerrainSideDecorator* bottom_side 
+		= dynamic_cast<TerrainSideDecorator*>(bottom_side_.get());
+	
+	TerrainSideDecorator* in_top_side
+		= dynamic_cast<TerrainSideDecorator*>(in_bottom_tile.top_side_.get());
+	
+	if(bottom_side->IsPotentialTerrainMatch(*in_top_side)) {
+		return true;
+	}
+	
+	return false;	
+}
+bool Tile::
+	IsLeftTerrainMatch(Tile& in_left_tile) const
+{
+	TerrainSideDecorator* left_side 
+		= dynamic_cast<TerrainSideDecorator*>(left_side_.get());
+	
+	TerrainSideDecorator* in_right_side
+		= dynamic_cast<TerrainSideDecorator*>(in_left_tile.right_side_.get());
+	
+	if(left_side->IsPotentialTerrainMatch(*in_right_side)) {
+		return true;
+	}
+	
+	return false;		
+}
+
 Tile::~Tile()
 {
 	

@@ -6,6 +6,10 @@
 namespace carcassonne
 {
 
+class FieldSideDecorator; // Forward declarations
+class RoadSideDecorator;
+class CitySideDecorator;
+
 class TerrainSideDecorator : public SideDecorator
 {
  public:
@@ -16,6 +20,17 @@ class TerrainSideDecorator : public SideDecorator
  	
  	virtual void CopyFrom(const TerrainSideDecorator&);
  	virtual Side* Clone() const = 0;
+ 	
+ 	/**
+ 	 * IsPotentialTerrainMatch and IsExistingTerrainMatch methods implement
+ 	 * the Double Dispatch Technique in order to ascertain whether or not
+ 	 * two terrains match
+ 	 */
+ 	virtual bool IsPotentialTerrainMatch(const TerrainSideDecorator&) const = 0;
+ 	
+ 	virtual bool IsExistingTerrainMatch(const FieldSideDecorator&) const = 0;
+ 	virtual bool IsExistingTerrainMatch(const RoadSideDecorator&) const = 0;
+ 	virtual bool IsExistingTerrainMatch(const CitySideDecorator&) const = 0;
 	
 	virtual SideDecorator* Decorate(Side*) = 0;
 	

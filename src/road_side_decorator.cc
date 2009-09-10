@@ -59,6 +59,31 @@ std::string RoadSideDecorator::ToString() const
 	
 }
 
+bool RoadSideDecorator::
+	IsPotentialTerrainMatch(const TerrainSideDecorator& 
+														inTerrainSideDecorator) const
+{
+	return inTerrainSideDecorator.IsExistingTerrainMatch(*this);
+}
+ 	
+bool RoadSideDecorator:: 
+	IsExistingTerrainMatch(const FieldSideDecorator& inFieldSideDecorator) const
+{
+	return false;
+}
+
+bool RoadSideDecorator:: 
+	IsExistingTerrainMatch(const RoadSideDecorator& inRoadSideDecorator) const
+{
+	return true;
+}
+
+bool RoadSideDecorator::
+	IsExistingTerrainMatch(const CitySideDecorator& inCitySideDecorator) const
+{
+	return false;
+}
+
 RoadSideDecorator::~RoadSideDecorator()
 {
 }

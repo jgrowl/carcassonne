@@ -11,11 +11,11 @@ TileSet::TileSet()
 	
 // TODO:Make a function that pushes a certain number of tiles into the tile 
 //	 set void push_back_n(Tile**, int);
-	bagable_tiles_.push_back(valid_tiles_.city_city_field_city_copy());
-	bagable_tiles_.push_back(valid_tiles_.city_city_field_city_copy());
-	bagable_tiles_.push_back(valid_tiles_.city_city_field_city_copy());
-	
-	bagable_tiles_.push_back(valid_tiles_.city_city_field_city_p_copy());
+//	bagable_tiles_.push_back(valid_tiles_.city_city_field_city_copy());
+//	bagable_tiles_.push_back(valid_tiles_.city_city_field_city_copy());
+//	bagable_tiles_.push_back(valid_tiles_.city_city_field_city_copy());
+//	
+//	bagable_tiles_.push_back(valid_tiles_.city_city_field_city_p_copy());
 	
 	bagable_tiles_.push_back(valid_tiles_.city_city_city_city_p_copy());
 	

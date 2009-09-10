@@ -1,7 +1,5 @@
 #include "field_side_decorator.h"
 
-#include <iostream>
-
 #include "terrain/field_segment.h"
 
 namespace carcassonne
@@ -56,6 +54,31 @@ std::string FieldSideDecorator::ToString() const
 {
 	return "field " + TerrainSideDecorator::ToString();
 	
+}
+
+bool FieldSideDecorator::
+	IsPotentialTerrainMatch(const TerrainSideDecorator& 
+														inTerrainSideDecorator) const
+{
+	return inTerrainSideDecorator.IsExistingTerrainMatch(*this);
+}
+ 	
+bool FieldSideDecorator:: 
+	IsExistingTerrainMatch(const FieldSideDecorator& inFieldSideDecorator) const
+{
+	return true;
+}
+
+bool FieldSideDecorator:: 
+	IsExistingTerrainMatch(const RoadSideDecorator& inRoadSideDecorator) const
+{
+	return false;
+}
+
+bool FieldSideDecorator::
+	IsExistingTerrainMatch(const CitySideDecorator& inCitySideDecorator) const
+{
+	return false;
 }
 
 FieldSideDecorator::~FieldSideDecorator()

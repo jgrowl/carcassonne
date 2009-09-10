@@ -19,8 +19,13 @@ public:
 	
 	virtual SideDecorator* Decorate(Side*);
 	
-	
 	virtual std::string ToString() const;
+	
+	virtual bool IsPotentialTerrainMatch(const TerrainSideDecorator&) const;
+ 	
+ 	virtual bool IsExistingTerrainMatch(const FieldSideDecorator&) const;
+ 	virtual bool IsExistingTerrainMatch(const RoadSideDecorator&) const;
+ 	virtual bool IsExistingTerrainMatch(const CitySideDecorator&) const;
 	
 	virtual ~CitySideDecorator();
 };

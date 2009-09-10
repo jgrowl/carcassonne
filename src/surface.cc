@@ -66,6 +66,121 @@ bool Surface::IsClosed(Position& position) const
   return true;
 }
 
+/**
+ * Checks to see if a Tile's top side will fit in with with the surface's
+ * surrounding landscape.
+ */
+bool Surface::
+	IsTopTerrainFit(Position& in_position, Tile& in_tile) const
+{
+	typedef std::map<Position, Tile*>::const_iterator PositionMap;
+	PositionMap top_it = tiles_.find(in_position.GetTopNeighbor());
+	
+	Tile& top_tile = *(top_it->second);
+	
+	// If there is no tile in the top position.
+	if(top_it == tiles_.end()) {
+		return true;	
+	}
+	
+	if(in_tile.IsTopTerrainMatch(top_tile)) {
+		return true;
+	}
+	
+	return false;	
+}
+
+/**
+ * Checks to see if a Tile's right side will fit in with with the surface's
+ * surrounding landscape.
+ */
+bool Surface::
+	IsRightTerrainFit(Position& in_position, Tile& in_tile) const
+{
+	typedef std::map<Position, Tile*>::const_iterator PositionMap;
+	PositionMap right_it = tiles_.find(in_position.GetRightNeighbor());
+	
+	Tile& right_tile = *(right_it->second);
+	
+	// If there is no tile in the right position.
+	if(right_it == tiles_.end()) {
+		return true;	
+	}
+	
+	if(in_tile.IsRightTerrainMatch(right_tile)) {
+		return true;
+	}
+	
+	return false;	
+}
+
+/**
+ * Checks to see if a Tile's bottom side will fit in with with the surface's
+ * surrounding landscape.
+ */
+bool Surface::
+	IsBottomTerrainFit(Position& in_position, Tile& in_tile) const
+{
+	typedef std::map<Position, Tile*>::const_iterator PositionMap;
+	PositionMap bottom_it = tiles_.find(in_position.GetBottomNeighbor());
+	
+	Tile& bottom_tile = *(bottom_it->second);
+		
+	// If there is no tile in the bottom position.
+	if(bottom_it == tiles_.end()) {
+		return true;	
+	}
+
+	if(in_tile.IsBottomTerrainMatch(bottom_tile)) {
+		return true;
+	}
+	
+	return false;	
+}
+
+/**
+ * Checks to see if a Tile's left side will fit in with with the surface's
+ * surrounding landscape.
+ */
+bool Surface::
+	IsLeftTerrainFit(Position& in_position, Tile& in_tile) const
+{
+	typedef std::map<Position, Tile*>::const_iterator PositionMap;
+	PositionMap left_it = tiles_.find(in_position.GetLeftNeighbor());
+	
+	Tile& left_tile = *(left_it->second);
+
+	// If there is no tile in the left position.
+	if(left_it == tiles_.end()) {
+		return true;	
+	}
+		
+	if(in_tile.IsLeftTerrainMatch(left_tile)) {
+		return true;
+	}
+	
+	return false;	
+}
+
+bool Surface::
+	IsTerrainsMatch(Position& position, Tile& tile) const
+{
+		std::cout << "top: " << IsTopTerrainFit(position, tile) << std::endl;
+		std::cout << "right: " << IsRightTerrainFit(position, tile) << std::endl;
+		std::cout << "bottom: " << IsBottomTerrainFit(position, tile) << std::endl;
+		std::cout << "left: " << IsLeftTerrainFit(position, tile) << std::endl;
+	
+	if(IsTopTerrainFit(position, tile) 
+			&& IsRightTerrainFit(position, tile)
+			&& IsBottomTerrainFit(position, tile)
+			&& IsLeftTerrainFit(position, tile)) {
+				
+		return true;
+	}
+	
+	return false;
+}
+
 void Surface::PlaceTile(Position& position, Tile& tile)
 {	
   // The tile cannot be added to a position that is not open.
@@ -74,7 +189,10 @@ void Surface::PlaceTile(Position& position, Tile& tile)
     return;
   }
 
-	// TODO: Make sure the tile matches the surface's terrain.
+	if(!IsTerrainsMatch(position, tile)) {
+		std::cout << "That doesn't fit there!\n";
+		return;
+	}
 
   // The position is open so add a reference to the tile on the array of
   // tiles_.
@@ -113,7 +231,7 @@ std::vector<Position> Surface::GetNewOpenPositions(Position& position)
 	
 	// Create a container to put all of the open positions from 
 	// possible_positions in.
-  std::vector<Position> open_positions(4);
+  std::vector<Position> open_positions;
 
   // Iterate through possible_positions and add any actual open position
   // to the open_positions container.
@@ -137,6 +255,12 @@ void Surface::Render() const
 			i != e; ++i) {
 		std::cout << i->first.ToString() << std::endl
 							<< i->second->ToString() << std::endl;
+	}
+	
+	std::cout << "Displaying open positions...\n";
+	for(unsigned int i = 0; i < open_positions_.size(); ++i) {
+		std::cout << "[" << i << "] " << open_positions_[i].ToString() 
+							<< std::endl; 
 	}
 	
 }

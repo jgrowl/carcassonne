@@ -62,6 +62,36 @@ class Surface {
    *        positions.
    */
   bool IsClosed(Position& position) const;
+  
+  /**
+   * Checks to see if a Tile's top side will fit in with with the surface's
+   * surrounding landscape.
+   */
+	bool IsTopTerrainFit(Position& position, Tile& top_tile) const;
+	
+	/**
+   * Checks to see if a Tile's right side will fit in with with the surface's
+   * surrounding landscape.
+   */
+	bool IsRightTerrainFit(Position& position, Tile& right_tile) const;
+
+  /**
+   * Checks to see if a Tile's bottom side will fit in with with the surface's
+   * surrounding landscape.
+   */
+	bool IsBottomTerrainFit(Position& position, Tile& bottom_tile) const;
+	
+  /**
+   * Checks to see if a Tile's left side will fit in with with the surface's
+   * surrounding landscape.
+   */
+	bool IsLeftTerrainFit(Position& position, Tile& left_tile) const;
+  
+  /**
+   * Checks to see if a tile will match the existing surrounding Tiles'
+   * terrains.
+   */
+  bool IsTerrainsMatch(Position& position, Tile& tile) const;
 
   /**
    * Places a tile onto the surface and updates the surface's open 

@@ -80,10 +80,12 @@ void Game::Play()
 				it != players_.end() && !(bag_.IsEmpty()); ++it) {
 			std::cout << "It is the " << (*it).ToString() << "'s turn.\n";
 		
-			surface_.Render();
-		
 			// Draw a tile from the bag
 			Draw_();
+			
+			// Render any tiles that are already placed as well as displaying
+			// any open positions.
+			surface_.Render();
 			
 			// Let player choose a position to place the tile
 			PlaceTile_();

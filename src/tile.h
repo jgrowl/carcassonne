@@ -50,6 +50,11 @@ class Tile
 	void set_left_side(Side* top);
  	
 	std::string ToString() const;	
+	
+	bool IsTopTerrainMatch(Tile& top_tile) const;
+	bool IsRightTerrainMatch(Tile& right_tile) const;
+	bool IsBottomTerrainMatch(Tile& bottom_tile) const;
+	bool IsLeftTerrainMatch(Tile& left_tile) const;
  
   virtual ~Tile();
   
