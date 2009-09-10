@@ -101,8 +101,10 @@ class Surface {
    * @param position The position on the surface that the tile will
    *        			   be added onto.
    * @param tile The tile to be added onto the surface.
+   * @return true if the tile was able to be placed in the specified position.
+   * false otherwise.
    */
-  void PlaceTile(Position& position, Tile& tile);
+  bool PlaceTile(Position& position, Tile& tile);
 
   /**
    * Gets all positions surrounding a position.

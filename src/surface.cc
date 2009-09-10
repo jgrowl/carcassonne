@@ -165,11 +165,6 @@ bool Surface::
 bool Surface::
 	IsTerrainsMatch(Position& position, Tile& tile) const
 {
-		std::cout << "top: " << IsTopTerrainFit(position, tile) << std::endl;
-		std::cout << "right: " << IsRightTerrainFit(position, tile) << std::endl;
-		std::cout << "bottom: " << IsBottomTerrainFit(position, tile) << std::endl;
-		std::cout << "left: " << IsLeftTerrainFit(position, tile) << std::endl;
-	
 	if(IsTopTerrainFit(position, tile) 
 			&& IsRightTerrainFit(position, tile)
 			&& IsBottomTerrainFit(position, tile)
@@ -181,17 +176,17 @@ bool Surface::
 	return false;
 }
 
-void Surface::PlaceTile(Position& position, Tile& tile)
+bool Surface::PlaceTile(Position& position, Tile& tile)
 {	
   // The tile cannot be added to a position that is not open.
   if(!IsOpen(position)) {
-  	// Throw exception
-    return;
+		std::cout << "That position already has a tile!\n";
+    return false;
   }
 
 	if(!IsTerrainsMatch(position, tile)) {
-		std::cout << "That doesn't fit there!\n";
-		return;
+		std::cout << "Terrain does not match!\n";
+		return false;
 	}
 
   // The position is open so add a reference to the tile on the array of
@@ -210,6 +205,8 @@ void Surface::PlaceTile(Position& position, Tile& tile)
   // The position is no longer open since the new tile is there so remove it
   // from the open_positions_.
   std::remove(open_positions_.begin(), open_positions_.end(), position);
+  
+  return true;
 }
 
 std::vector<Position> Surface::GetNeighborPositions(Position& position)

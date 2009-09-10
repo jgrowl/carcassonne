@@ -114,25 +114,27 @@ void Game::Draw_()
 
 void Game::PlaceTile_()
 {
-	// Get open positions and display to player.
-	std::cout << "Choose where to place the tile: \n";
-	//std::cout << surface_.open_positions().ToString() << std::endl;
+	Position choice;
+	do {
+		// Get open positions and display to player.
+		std::cout << "Choose where to place the tile: \n";
+		//std::cout << surface_.open_positions().ToString() << std::endl;
+		
+		// If hint mode is turned on display only open positions where 
+		// current tile will fit.
+		
+		// accept input from user as to where the tile will be placed.
+		std::cout << ": ";
 	
-	// If hint mode is turned on display only open positions where 
-	// current tile will fit.
-	
-	// accept input from user as to where the tile will be placed.
-	std::cout << ": ";
-
-	int i;
-	std::cin >> i;
-	
-	// Clear the buffer
-	std::cin.clear();
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	
-	Position choice = surface_.open_positions().at(i);
-	surface_.PlaceTile(choice, *current_tile_);
+		int i;
+		std::cin >> i;
+		
+		// Clear the buffer
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		
+		choice = surface_.open_positions().at(i);
+	} while(!surface_.PlaceTile(choice, *current_tile_));
 	current_tile_ = NULL;
 }
 
