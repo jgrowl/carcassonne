@@ -10,8 +10,13 @@
 namespace carcassonne
 {
 
+const int Tile::kNoRotation = 0;
+const int Tile::kQuarterRotation = 90;
+const int Tile::kFullRotation = 360;
+
 Tile::Tile() 
 {
+	orientation_ = 0;
 	init_sides_();
 	
 }
@@ -48,6 +53,7 @@ Tile& Tile::operator=(const Tile& rhs)
 
 void Tile::CopyFrom(const Tile& src)
 {
+	// fix memory leak
 	top_side_.reset(src.top_side_->Clone());
 	right_side_.reset(src.right_side_->Clone());
 	bottom_side_.reset(src.bottom_side_->Clone());
@@ -131,7 +137,13 @@ void Tile::set_left_side(Side* left)
 	
 }
 
-
+void Tile::Rotate()
+{
+	orientation_ += kQuarterRotation;
+	if(orientation_ >= kFullRotation) {
+		orientation_ = kNoRotation;
+	}
+}
 
 std::string Tile::ToString() const
 {

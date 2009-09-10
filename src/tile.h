@@ -49,12 +49,14 @@ class Tile
 	void set_bottom_side(Side* top);
 	void set_left_side(Side* top);
  	
+ 	virtual void Rotate();
+ 	
 	std::string ToString() const;	
 	
-	bool IsTopTerrainMatch(Tile& top_tile) const;
-	bool IsRightTerrainMatch(Tile& right_tile) const;
-	bool IsBottomTerrainMatch(Tile& bottom_tile) const;
-	bool IsLeftTerrainMatch(Tile& left_tile) const;
+	virtual bool IsTopTerrainMatch(Tile& top_tile) const;
+	virtual bool IsRightTerrainMatch(Tile& right_tile) const;
+	virtual bool IsBottomTerrainMatch(Tile& bottom_tile) const;
+	virtual bool IsLeftTerrainMatch(Tile& left_tile) const;
  
   virtual ~Tile();
   
@@ -64,12 +66,18 @@ class Tile
 	virtual void init_terrains_(TerrainSideDecorator& top_terrain, 
 											 			  TerrainSideDecorator& right_terrain,
 											 			  TerrainSideDecorator& bottom_terrain,
-											 			  TerrainSideDecorator& left_terrain); 				 
+											 			  TerrainSideDecorator& left_terrain);
+											 			  
+	static const int kNoRotation;
+	static const int kQuarterRotation;
+	static const int kFullRotation;
 												 
  	boost::scoped_ptr<Side> top_side_;
  	boost::scoped_ptr<Side> right_side_;
  	boost::scoped_ptr<Side> bottom_side_;
  	boost::scoped_ptr<Side> left_side_;
+ 	
+ 	int orientation_;
  	
 };
 
