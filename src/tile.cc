@@ -6,17 +6,18 @@
 #include "right_side.h"
 #include "bottom_side.h"
 #include "left_side.h"
+#include "convert.h"
 
 namespace carcassonne
 {
 
 const int Tile::kNoRotation = 0;
-const int Tile::kQuarterRotation = 90;
-const int Tile::kFullRotation = 360;
+const int Tile::kQuarterRotation = 1;
+const int Tile::kFullRotation = 4;
 
 Tile::Tile() 
 {
-	orientation_ = 0;
+	orientation_ = kNoRotation;
 	init_sides_();
 	
 }
@@ -143,26 +144,86 @@ void Tile::Rotate()
 	if(orientation_ >= kFullRotation) {
 		orientation_ = kNoRotation;
 	}
+	
+	std::cout << "Rotating tile...\n";
+	std::cout << ToString();
 }
 
 std::string Tile::ToString() const
 {
-	return	"tile with: \n\t" +
-					top_side_->ToString() + "\n\t" +
-					right_side_->ToString() + "\n\t" +
-					bottom_side_->ToString() + "\n\t" +
-				  left_side_->ToString() + "\n\n";
-	
+	return	"tile with: \n\t"
+			+ std::string("TOP: ") + GetAdjustedTopSide()->ToString() + "\n\t" 
+			+ std::string("RIGHT: ") + GetAdjustedRightSide()->ToString() + "\n\t" 
+			+ std::string("BOTTOM: ") + GetAdjustedBottomSide()->ToString() + "\n\t" 
+			+ std::string("LEFT: ") + GetAdjustedLeftSide()->ToString() + "\n\t"
+			+ std::string("\torientation: ")  + stringify(orientation_);
 }	 
+
+Side* Tile::
+	GetAdjustedTopSide() const
+{
+	if(orientation_ == kQuarterRotation) {
+		return left_side_.get();
+	} else if(orientation_ == 2 * kQuarterRotation) {
+		return bottom_side_.get();
+	} else if(orientation_ == 3 * kQuarterRotation) {
+		return right_side_.get();
+	}
+	
+	return top_side_.get();
+}
+
+Side* Tile::
+	GetAdjustedRightSide() const
+{
+	if(orientation_ == kQuarterRotation) {
+		return top_side_.get();
+	} else if(orientation_ == 2 * kQuarterRotation) {
+		return left_side_.get();
+	} else if(orientation_ == 3 * kQuarterRotation) {
+		return bottom_side_.get();
+	}	
+	
+	return right_side_.get();
+}
+
+Side* Tile::
+	GetAdjustedBottomSide() const
+{
+	if(orientation_ == kQuarterRotation) {
+		return right_side_.get();
+	} else if(orientation_ == 2 * kQuarterRotation) {
+		return top_side_.get();
+	} else if(orientation_ == 3 * kQuarterRotation) {
+		return left_side_.get();
+	}	
+	
+	return bottom_side_.get();
+}
+
+Side* Tile::
+	GetAdjustedLeftSide() const
+{
+	if(orientation_ == kQuarterRotation) {
+		return bottom_side_.get();
+	} else if(orientation_ == 2 * kQuarterRotation) {
+		return right_side_.get();
+	} else if(orientation_ == 3 * kQuarterRotation) {
+		return top_side_.get();
+	}	
+	
+	return left_side_.get();
+}
+	
 
 bool Tile::
 	IsTopTerrainMatch(Tile& in_top_tile) const
 {
 	TerrainSideDecorator* top_side 
-		= dynamic_cast<TerrainSideDecorator*>(top_side_.get());
+		= dynamic_cast<TerrainSideDecorator*>(GetAdjustedTopSide());
 	
 	TerrainSideDecorator* in_bottom_side
-		= dynamic_cast<TerrainSideDecorator*>(in_top_tile.bottom_side_.get());
+		= dynamic_cast<TerrainSideDecorator*>(in_top_tile.GetAdjustedBottomSide());
 	
 	if(top_side->IsPotentialTerrainMatch(*in_bottom_side)) {
 		return true;
@@ -175,10 +236,10 @@ bool Tile::
 	 IsRightTerrainMatch(Tile& in_right_tile) const
 {
 	TerrainSideDecorator* right_side 
-		= dynamic_cast<TerrainSideDecorator*>(right_side_.get());
+		= dynamic_cast<TerrainSideDecorator*>(GetAdjustedRightSide());
 	
 	TerrainSideDecorator* in_left_side
-		= dynamic_cast<TerrainSideDecorator*>(in_right_tile.left_side_.get());
+		= dynamic_cast<TerrainSideDecorator*>(in_right_tile.GetAdjustedLeftSide());
 	
 	if(right_side->IsPotentialTerrainMatch(*in_left_side)) {
 		return true;
@@ -187,14 +248,15 @@ bool Tile::
 	return false;		
 }
 
+
 bool Tile::
 	IsBottomTerrainMatch(Tile& in_bottom_tile) const
 {
 	TerrainSideDecorator* bottom_side 
-		= dynamic_cast<TerrainSideDecorator*>(bottom_side_.get());
+		= dynamic_cast<TerrainSideDecorator*>(GetAdjustedBottomSide());
 	
 	TerrainSideDecorator* in_top_side
-		= dynamic_cast<TerrainSideDecorator*>(in_bottom_tile.top_side_.get());
+		= dynamic_cast<TerrainSideDecorator*>(in_bottom_tile.GetAdjustedTopSide());
 	
 	if(bottom_side->IsPotentialTerrainMatch(*in_top_side)) {
 		return true;
@@ -206,10 +268,10 @@ bool Tile::
 	IsLeftTerrainMatch(Tile& in_left_tile) const
 {
 	TerrainSideDecorator* left_side 
-		= dynamic_cast<TerrainSideDecorator*>(left_side_.get());
+		= dynamic_cast<TerrainSideDecorator*>(GetAdjustedLeftSide());
 	
 	TerrainSideDecorator* in_right_side
-		= dynamic_cast<TerrainSideDecorator*>(in_left_tile.right_side_.get());
+		= dynamic_cast<TerrainSideDecorator*>(in_left_tile.GetAdjustedRightSide());
 	
 	if(left_side->IsPotentialTerrainMatch(*in_right_side)) {
 		return true;

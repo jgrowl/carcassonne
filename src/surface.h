@@ -93,10 +93,19 @@ class Surface {
    */
   bool IsTerrainsMatch(Position& position, Tile& tile) const;
 
+	/**
+	 * Checks to see if a specified tile will fit onto the surface at a 
+	 * specified Position.
+	 */
+	bool IsTileFit(Position& position, Tile& tile) const;
+
   /**
    * Places a tile onto the surface and updates the surface's open 
    * positions by removing the used position and adding the new open
    * positions created by the new tile.
+   * 
+   * Note: This method does not check to see if the tile fits at the location.
+   * It will place it regardless.
    * 
    * @param position The position on the surface that the tile will
    *        			   be added onto.

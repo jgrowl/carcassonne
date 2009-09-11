@@ -124,7 +124,7 @@ void Game::PlaceTile_()
 		// current tile will fit.
 		
 		// accept input from user as to where the tile will be placed.
-		std::cout << ": ";
+		std::cout << "(-1 to rotate): ";
 	
 		int i;
 		std::cin >> i;
@@ -133,8 +133,19 @@ void Game::PlaceTile_()
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		
+		if(i == -1) {
+			current_tile_->Rotate();
+			continue;
+		}
+		
 		choice = surface_.open_positions().at(i);
-	} while(!surface_.PlaceTile(choice, *current_tile_));
+		if(surface_.IsTileFit(choice, *current_tile_)) {
+			surface_.PlaceTile(choice, *current_tile_);
+			break;
+		}
+		
+	} while(true);
+	
 	current_tile_ = NULL;
 }
 

@@ -176,8 +176,9 @@ bool Surface::
 	return false;
 }
 
-bool Surface::PlaceTile(Position& position, Tile& tile)
-{	
+bool Surface::
+	IsTileFit(Position& position, Tile& tile) const
+{
   // The tile cannot be added to a position that is not open.
   if(!IsOpen(position)) {
 		std::cout << "That position already has a tile!\n";
@@ -188,9 +189,12 @@ bool Surface::PlaceTile(Position& position, Tile& tile)
 		std::cout << "Terrain does not match!\n";
 		return false;
 	}
+	
+	return true;
+}
 
-  // The position is open so add a reference to the tile on the array of
-  // tiles_.
+bool Surface::PlaceTile(Position& position, Tile& tile)
+{	
 	tiles_[position] = &tile;
   
 	// Get all new positions that will be created by placing the tile
