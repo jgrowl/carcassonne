@@ -3,7 +3,8 @@
 #include <iostream>
 #include <algorithm> // For random_shuffle()
 #include <ctime>		 // To seed system clock for use in random_shuffle()
-#include <limits>
+#include <limits>		 // For numeric_limits
+#include <cstdio>		 // For printf()
 
 #include "vector_utility.h"
 #include "ptr_container_utility.h" // For ptr_vector_to_std_vector() and
@@ -23,8 +24,7 @@ Game::Game()
 	tile_set_.reset(new TileSet);
 	
 	// Place the starting tile.
-	surface_.PlaceTile(surface_.kOriginPosition(),
-										 tile_set_->starting_tile_begin());
+	surface_.PlaceStartingTile(tile_set_->starting_tile_begin());
 	
 	// Fill the bag with the TileSet's bagable tiles.
 	bag_.Fill(tile_set_->bagable_tiles());
@@ -90,6 +90,8 @@ void Game::Play()
 			// Let player choose a position to place the tile
 			PlaceTile_();
 			
+			// Lets the player place a follower if they desire.
+			PlaceFollower_();
 		}
 	}
 	
@@ -109,7 +111,6 @@ void Game::Draw_()
 	std::cout << "Player has drawn a " 
 						<< current_tile_->ToString() 
 						<< std::endl;
-	
 }
 
 void Game::PlaceTile_()
@@ -147,6 +148,48 @@ void Game::PlaceTile_()
 	} while(true);
 	
 	current_tile_ = NULL;
+}
+
+void Game::PlaceFollower_()
+{
+	std::cout << "Do you wish to place a follower?(y/n): ";
+	
+	// Clear the buffer
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	
+	std::string wants_to_place;
+	std::cin >> wants_to_place;
+	
+	if(wants_to_place == "y") {
+		return;
+	}
+	
+	std::cout << "Which side?(t,r,b,l): ";
+	
+	// Clear the buffer
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	std::string side_to_place;
+	if(side_to_place == "t") {
+		
+	}
+	
+	else if(side_to_place == "r") {
+		
+	}
+	
+	else if(side_to_place == "b") {
+		
+	}
+	
+	else if(side_to_place == "l") {
+		
+	}
+	
+	else {
+		
+	}
 }
 
 Game::~Game()

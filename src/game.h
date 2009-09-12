@@ -67,6 +67,11 @@ class Game
 	virtual void PlaceTile_();
 	
 	/**
+	 * Optional placement of a follower on a recently placed tile.
+	 */
+	virtual void PlaceFollower_();
+	
+	/**
 	 * The game controls what tile set is used.  The TileSet can a be decorated
 	 * dynamically depending on what the players decide.
 	 */	
