@@ -28,23 +28,19 @@
 
 namespace carcassonne {
 
+const Position Surface::kOriginPosition;
+
 Surface::Surface()
 {
-	open_positions_.push_back(kOriginPosition_);
+	open_positions_.push_back(kOriginPosition);
 }
 
-Position& Surface::kOriginPosition()
-{
-	return kOriginPosition_;
-}
-
-std::vector<Position> Surface::open_positions()
+std::vector<Position> Surface::open_positions() const
 {
 	return open_positions_;
-	
 }
 
-bool Surface::IsOpen(Position& position) const
+bool Surface::IsOpen(const Position& position) const
 {
 	for(std::vector<Position>::const_iterator i = open_positions_.begin(),
 																						e = open_positions_.end();
@@ -57,7 +53,7 @@ bool Surface::IsOpen(Position& position) const
   return false;
 }
 
-bool Surface::IsClosed(Position& position) const
+bool Surface::IsClosed(const Position& position) const
 {
 	if(tiles_.find(position) == tiles_.end()) {
 		return false;
@@ -71,12 +67,12 @@ bool Surface::IsClosed(Position& position) const
  * surrounding landscape.
  */
 bool Surface::
-	IsTopTerrainFit(Position& in_position, Tile& in_tile) const
+	IsTopTerrainFit(const Position& in_position, const Tile& in_tile) const
 {
-	typedef std::map<Position, Tile*>::const_iterator PositionMap;
-	PositionMap top_it = tiles_.find(in_position.GetTopNeighbor());
+	PositionMap::const_iterator top_it 
+		= tiles_.find(in_position.GetTopNeighbor());
 	
-	Tile& top_tile = *(top_it->second);
+	const Tile& top_tile = *(top_it->second);
 	
 	// If there is no tile in the top position.
 	if(top_it == tiles_.end()) {
@@ -95,12 +91,12 @@ bool Surface::
  * surrounding landscape.
  */
 bool Surface::
-	IsRightTerrainFit(Position& in_position, Tile& in_tile) const
+	IsRightTerrainFit(const Position& in_position, const Tile& in_tile) const
 {
-	typedef std::map<Position, Tile*>::const_iterator PositionMap;
-	PositionMap right_it = tiles_.find(in_position.GetRightNeighbor());
+	PositionMap::const_iterator right_it 
+		= tiles_.find(in_position.GetRightNeighbor());
 	
-	Tile& right_tile = *(right_it->second);
+	const Tile& right_tile = *(right_it->second);
 	
 	// If there is no tile in the right position.
 	if(right_it == tiles_.end()) {
@@ -119,12 +115,12 @@ bool Surface::
  * surrounding landscape.
  */
 bool Surface::
-	IsBottomTerrainFit(Position& in_position, Tile& in_tile) const
+	IsBottomTerrainFit(const Position& in_position, const Tile& in_tile) const
 {
-	typedef std::map<Position, Tile*>::const_iterator PositionMap;
-	PositionMap bottom_it = tiles_.find(in_position.GetBottomNeighbor());
+	PositionMap::const_iterator bottom_it 
+		= tiles_.find(in_position.GetBottomNeighbor());
 	
-	Tile& bottom_tile = *(bottom_it->second);
+	const Tile& bottom_tile = *(bottom_it->second);
 		
 	// If there is no tile in the bottom position.
 	if(bottom_it == tiles_.end()) {
@@ -143,12 +139,12 @@ bool Surface::
  * surrounding landscape.
  */
 bool Surface::
-	IsLeftTerrainFit(Position& in_position, Tile& in_tile) const
+	IsLeftTerrainFit(const Position& in_position, const Tile& in_tile) const
 {
-	typedef std::map<Position, Tile*>::const_iterator PositionMap;
-	PositionMap left_it = tiles_.find(in_position.GetLeftNeighbor());
+	PositionMap::const_iterator left_it 
+		= tiles_.find(in_position.GetLeftNeighbor());
 	
-	Tile& left_tile = *(left_it->second);
+	const Tile& left_tile = *(left_it->second);
 
 	// If there is no tile in the left position.
 	if(left_it == tiles_.end()) {
@@ -163,7 +159,7 @@ bool Surface::
 }
 
 bool Surface::
-	IsTerrainsMatch(Position& position, Tile& tile) const
+	IsTerrainsMatch(const Position& position, const Tile& tile) const
 {
 	if(IsTopTerrainFit(position, tile) 
 			&& IsRightTerrainFit(position, tile)
@@ -177,7 +173,7 @@ bool Surface::
 }
 
 bool Surface::
-	IsTileFit(Position& position, Tile& tile) const
+	IsTileFit(const Position& position, const Tile& tile) const
 {
   // The tile cannot be added to a position that is not open.
   if(!IsOpen(position)) {
@@ -193,7 +189,7 @@ bool Surface::
 	return true;
 }
 
-bool Surface::PlaceTile(Position& position, Tile& tile)
+bool Surface::PlaceTile(const Position& position, const Tile& tile)
 {	
 	tiles_[position] = &tile;
   
@@ -213,7 +209,17 @@ bool Surface::PlaceTile(Position& position, Tile& tile)
   return true;
 }
 
-std::vector<Position> Surface::GetNeighborPositions(Position& position)
+/**
+ * Places a tile onto the Surface's kOriginPosition
+ */
+bool Surface::
+	PlaceStartingTile(const Tile& starting_tile)
+{
+	return PlaceTile(kOriginPosition, starting_tile);
+}
+
+std::vector<Position> Surface::
+	GetNeighborPositions(const Position& position) const
 {
 	std::vector<Position> neighbors(4);
   
@@ -225,7 +231,8 @@ std::vector<Position> Surface::GetNeighborPositions(Position& position)
   return neighbors;
 }
 
-std::vector<Position> Surface::GetNewOpenPositions(Position& position)
+std::vector<Position> Surface::
+	GetNewOpenPositions(const Position& position) const
 {
 	// Put all of the position's neighbor positions into a temporary variable.
 	std::vector<Position> possible_positions = GetNeighborPositions(position);
@@ -251,8 +258,8 @@ std::vector<Position> Surface::GetNewOpenPositions(Position& position)
 void Surface::Render() const
 {
 	std::cout << "Displaying current board...\n";
-	for(std::map<Position, Tile*>::const_iterator i = tiles_.begin(),
-																			 					e = tiles_.end();
+	for(PositionMap::const_iterator i = tiles_.begin(),
+																	e = tiles_.end();
 			i != e; ++i) {
 		std::cout << i->first.ToString() << std::endl
 							<< i->second->ToString() << std::endl;

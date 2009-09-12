@@ -156,7 +156,7 @@ std::string Tile::ToString() const
 			+ std::string("RIGHT: ") + GetAdjustedRightSide()->ToString() + "\n\t" 
 			+ std::string("BOTTOM: ") + GetAdjustedBottomSide()->ToString() + "\n\t" 
 			+ std::string("LEFT: ") + GetAdjustedLeftSide()->ToString() + "\n\t"
-			+ std::string("\torientation: ")  + stringify(orientation_);
+			+ std::string("\torientation: ")  + stringify(orientation_) + "\n\n";
 }	 
 
 Side* Tile::
@@ -217,7 +217,7 @@ Side* Tile::
 	
 
 bool Tile::
-	IsTopTerrainMatch(Tile& in_top_tile) const
+	IsTopTerrainMatch(const Tile& in_top_tile) const
 {
 	TerrainSideDecorator* top_side 
 		= dynamic_cast<TerrainSideDecorator*>(GetAdjustedTopSide());
@@ -233,7 +233,7 @@ bool Tile::
 }
 
 bool Tile::
-	 IsRightTerrainMatch(Tile& in_right_tile) const
+	 IsRightTerrainMatch(const Tile& in_right_tile) const
 {
 	TerrainSideDecorator* right_side 
 		= dynamic_cast<TerrainSideDecorator*>(GetAdjustedRightSide());
@@ -250,7 +250,7 @@ bool Tile::
 
 
 bool Tile::
-	IsBottomTerrainMatch(Tile& in_bottom_tile) const
+	IsBottomTerrainMatch(const Tile& in_bottom_tile) const
 {
 	TerrainSideDecorator* bottom_side 
 		= dynamic_cast<TerrainSideDecorator*>(GetAdjustedBottomSide());
@@ -265,7 +265,7 @@ bool Tile::
 	return false;	
 }
 bool Tile::
-	IsLeftTerrainMatch(Tile& in_left_tile) const
+	IsLeftTerrainMatch(const Tile& in_left_tile) const
 {
 	TerrainSideDecorator* left_side 
 		= dynamic_cast<TerrainSideDecorator*>(GetAdjustedLeftSide());

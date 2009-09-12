@@ -6,12 +6,6 @@
 #include <boost/scoped_ptr.hpp>
 
 #include "side.h"
-
-#include "top_side_connections.h"
-#include "right_side_connections.h"
-#include "bottom_side_connections.h"
-#include "left_side_connections.h"
-
 #include "terrain_side_decorator.h"
 
 namespace carcassonne
@@ -62,10 +56,14 @@ class Tile
 	virtual Side* GetAdjustedBottomSide() const;
 	virtual Side* GetAdjustedLeftSide() const;
 	
-	virtual bool IsTopTerrainMatch(Tile& top_tile) const;
-	virtual bool IsRightTerrainMatch(Tile& right_tile) const;
-	virtual bool IsBottomTerrainMatch(Tile& bottom_tile) const;
-	virtual bool IsLeftTerrainMatch(Tile& left_tile) const;
+	/**
+	 * Checks if the adjusted top side of a tile's terrain matches that of a 
+	 * specified tile's bottom side.
+	 */
+	virtual bool IsTopTerrainMatch(const Tile& top_tile) const;
+	virtual bool IsRightTerrainMatch(const Tile& right_tile) const;
+	virtual bool IsBottomTerrainMatch(const Tile& bottom_tile) const;
+	virtual bool IsLeftTerrainMatch(const Tile& left_tile) const;
 	
   virtual ~Tile();
   

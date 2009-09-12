@@ -43,9 +43,7 @@ class Surface {
  public:
   Surface();
 
-	Position& kOriginPosition();
-
-	std::vector<Position> open_positions();
+	std::vector<Position> open_positions() const;
 
   /**
    * Checks to see if a position is an open position
@@ -53,7 +51,7 @@ class Surface {
    * @param position Position object that is to be checked in the open 
    *        positions.
    */
-  bool IsOpen(Position& position) const;
+  bool IsOpen(const Position& position) const;
 
   /**
    * Checks to see if a position is a closed position
@@ -61,43 +59,45 @@ class Surface {
    * @param position Position object that is to be checked in the closed 
    *        positions.
    */
-  bool IsClosed(Position& position) const;
+  bool IsClosed(const Position& position) const;
   
   /**
    * Checks to see if a Tile's top side will fit in with with the surface's
    * surrounding landscape.
    */
-	bool IsTopTerrainFit(Position& position, Tile& top_tile) const;
+	bool IsTopTerrainFit(const Position& position, const Tile& top_tile) const;
 	
 	/**
    * Checks to see if a Tile's right side will fit in with with the surface's
    * surrounding landscape.
    */
-	bool IsRightTerrainFit(Position& position, Tile& right_tile) const;
+	bool IsRightTerrainFit(const Position& position,
+												 const Tile& right_tile) const;
 
   /**
    * Checks to see if a Tile's bottom side will fit in with with the surface's
    * surrounding landscape.
    */
-	bool IsBottomTerrainFit(Position& position, Tile& bottom_tile) const;
+	bool IsBottomTerrainFit(const Position& position,
+												  const Tile& bottom_tile) const;
 	
   /**
    * Checks to see if a Tile's left side will fit in with with the surface's
    * surrounding landscape.
    */
-	bool IsLeftTerrainFit(Position& position, Tile& left_tile) const;
+	bool IsLeftTerrainFit(const Position& position, const Tile& left_tile) const;
   
   /**
    * Checks to see if a tile will match the existing surrounding Tiles'
    * terrains.
    */
-  bool IsTerrainsMatch(Position& position, Tile& tile) const;
+  bool IsTerrainsMatch(const Position& position, const Tile& tile) const;
 
 	/**
 	 * Checks to see if a specified tile will fit onto the surface at a 
 	 * specified Position.
 	 */
-	bool IsTileFit(Position& position, Tile& tile) const;
+	bool IsTileFit(const Position& position, const Tile& tile) const;
 
   /**
    * Places a tile onto the surface and updates the surface's open 
@@ -113,7 +113,12 @@ class Surface {
    * @return true if the tile was able to be placed in the specified position.
    * false otherwise.
    */
-  bool PlaceTile(Position& position, Tile& tile);
+  bool PlaceTile(const Position& position, const Tile& tile);
+
+ 	/**
+   * Places a tile onto the Surface's kOriginPosition
+   */
+  bool PlaceStartingTile(const Tile& starting_tile);
 
   /**
    * Gets all positions surrounding a position.
@@ -121,8 +126,8 @@ class Surface {
    * @param position Position object whos neighbors are of interest.
    * @return A vector of the positions surrounding the passed position.
    */
-  std::vector<Position> GetNeighborPositions(Position& position);
-
+  std::vector<Position> GetNeighborPositions(const Position& position) const;
+  
   /**
    * Gets all new positions that would be created by adding to a position
    *
@@ -130,21 +135,21 @@ class Surface {
    * @return A vector of all new open positions that would be created by
    *         placing a tile at the specified position.
    */
-  std::vector<Position> GetNewOpenPositions(Position& position);
+  std::vector<Position> GetNewOpenPositions(const Position& position) const;
   
   virtual void Render() const;
 
   ~Surface();
 
  private:
-	DISALLOW_COPY_AND_ASSIGN(Surface);
+ 	typedef std::map<Position, const Tile*> PositionMap;
 
-  Position kOriginPosition_;
+  static const Position kOriginPosition;
 
 	std::vector<Position> open_positions_;
-	
-  std::map<Position, Tile*, LessThanPosition> tiles_;
-
+  std::map<Position, const Tile*, LessThanPosition> tiles_;
+  
+	DISALLOW_COPY_AND_ASSIGN(Surface);
 };
 
 }
